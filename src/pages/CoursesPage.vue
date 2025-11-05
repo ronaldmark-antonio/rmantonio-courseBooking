@@ -9,7 +9,7 @@ export default {
     const courses = ref([]);
 
     onBeforeMount(async () => {
-      let { data } = await api.get('https://coursebookingapi.onrender.com/courses/getAllCourses');
+      let { data } = await api.get('https://coursebookingapi.onrender.com/courses/all');
       console.log(data);
       courses.value = data;
     });
