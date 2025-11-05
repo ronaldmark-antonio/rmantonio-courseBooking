@@ -32,7 +32,7 @@
             try {
                     let res = await axios({
                         method: 'post',
-                        url: 'http://localhost:4000/users/login',
+                        url: 'https://coursebookingapi.onrender.com/users/login',
                         data: {
                             email: email.value,
                             password: password.value

@@ -37,7 +37,7 @@ const token = localStorage.getItem("token");
 if (!token) return notyf.error("You must be logged in as admin");
 
 try {
-    const response = await fetch("http://localhost:4000/courses", {
+    const response = await fetch("https://coursebookingapi.onrender.com/courses", {
     method: "POST",
     headers: {
         "Content-Type": "application/json",

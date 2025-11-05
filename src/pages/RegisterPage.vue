@@ -58,7 +58,7 @@
             // })]
             console.log("trying...")
 
-            let response = await axios.post('http://localhost:4000/users/register', {
+            let response = await axios.post('https://coursebookingapi.onrender.com/users/register', {
                             firstName: firstName.value,
                             lastName: lastName.value,
                             email: email.value,
