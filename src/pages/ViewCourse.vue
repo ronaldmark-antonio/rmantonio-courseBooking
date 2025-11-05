@@ -31,7 +31,7 @@
         // this request required authrozation header (token) but since we already setup the interceptor, we don't need to add it.
         //destructure the response object returned by api.post() and save the data property.
         let { data } = await api.post(
-            `/enrollments/enroll`,
+            `https://coursebookingapi.onrender.com/enrollments/enroll`,
             {
                 //Pass the courseId, we can access the course's id from the retrieve course details.
                 enrolledCourses: [
@@ -72,7 +72,7 @@
         //data is an object which acts as the request body.
         //options is an object that can contain the headers.
         //axios.get(url,data,options)
-        let { data } = await api.get(`/courses/specific/${route.params.id}`);
+        let { data } = await api.get(`https://coursebookingapi.onrender.com/courses/specific/${route.params.id}`);
 
         //console.log(data);
 

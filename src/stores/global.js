@@ -27,7 +27,7 @@ export const useGlobalStore = defineStore('global',() => {
 
         let {data} = await axios({
             method: 'get',
-            url: 'http://localhost:4000/users/details',
+            url: 'https://coursebookingapi.onrender.com/users/details',
             headers: {
                 Authorization: `Bearer ${token}`
             }
