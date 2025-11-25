@@ -12,10 +12,10 @@
       return {
          /* ACTIVITY SOLUTION START */
           bannerProps: {
-            title: "Zuitt Course Booking System",
+            title: "DevAcademy",
             tagline: "Opportunities for everyone, everywhere.",
             destination: "Courses",
-            buttonLabel: "View Our Courses"
+            buttonLabel: "View our Courses"
           }
           /* ACTIVITY SOLUTION END */
       };

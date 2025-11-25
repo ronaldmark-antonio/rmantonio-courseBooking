@@ -1,7 +1,7 @@
 <!-- ACTIVITY SOLUTION START -->
 <template>
     <div class="row my-5">
-        <h1 class="text-center text-primary mb-5">Why choose Zuitt?</h1>
+        <h1 class="text-center text-primary mb-5">Why choose DevAcademy?</h1>
         <div id="highlight1" class="col-md-4">
             <div id="highlight1" class="card p-2 min-height-100">
                 <div class="card-body">

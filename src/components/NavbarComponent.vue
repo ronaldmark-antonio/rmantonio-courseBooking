@@ -32,7 +32,7 @@
     <div class="container">
       <!-- router-link is used to navigate to pages using the vue Routing system -->
       <!-- This will prevent the page to refresh when changing pages -->
-      <router-link :to="{ name: 'Home' }" class="navbar-brand text-dark fw-bold">ZUITT</router-link>
+      <router-link :to="{ name: 'Home' }" class="navbar-brand text-primary fw-bold">DevAcademy</router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>

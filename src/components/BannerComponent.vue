@@ -7,7 +7,7 @@
         <h1 class="mb-3" id="banner-title">{{bannerProps.title}}</h1>
         <p class="mb-5" id="motto">{{bannerProps.tagline}}</p>
         <!-- ACTIVITY SOLUTION START -->
-        <router-link class="btn btn-primary btn-lg rounded-pill px-3" :to="{ name: bannerProps.destination }">{{bannerProps.buttonLabel}} <i class="bi bi-arrow-right"></i></router-link>
+        <router-link class="btn btn-primary btn-lg rounded-0 px-3" :to="{ name: bannerProps.destination }">{{bannerProps.buttonLabel}} <i class="bi bi-arrow-right"></i></router-link>
         <!-- ACTIVITY SOLUTION END -->
       </div>
     </div>
