@@ -28,25 +28,41 @@
 
 
 <template>
-	<nav class="navbar navbar-expand-lg sticky-top bg-light shadow-sm">
+  <nav class="navbar navbar-expand-lg sticky-top bg-light shadow-sm">
     <div class="container">
-      <!-- router-link is used to navigate to pages using the vue Routing system -->
-      <!-- This will prevent the page to refresh when changing pages -->
-      <router-link :to="{ name: 'Home' }" class="navbar-brand text-primary fw-bold">DevAcademy</router-link>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+
+      <!-- Brand with Logo Image -->
+      <router-link :to="{ name: 'Home' }" class="navbar-brand d-flex align-items-center fw-bold">
+        <img src="/images/logo.png" alt="DevAcademy Logo" width="40" height="40" class="me-2" />
+        <span class="text-dark">DevAcademy</span>
+      </router-link>
+
+      <!-- Navbar toggler -->
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
       </button>
+
+      <!-- Navbar links -->
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
           <router-link :to="{ name: 'Courses' }" class="nav-link">Courses</router-link>
-          <router-link :to="{ name: 'News' }" class="nav-link">News</router-link>    
-          <router-link :to="{ name: 'Profile' }" class="nav-link" v-if="user.email">Profile</router-link>   
-         <router-link :to="{ name: 'Register' }" class="nav-link" v-if="!user.email" >Register</router-link>
-         <router-link :to="{ name: 'Add Course' }" class="nav-link" v-if="user.isAdmin">Add Course</router-link>
+          <router-link :to="{ name: 'News' }" class="nav-link">News</router-link>
+          <router-link :to="{ name: 'Profile' }" class="nav-link" v-if="user.email">Profile</router-link>
+          <router-link :to="{ name: 'Register' }" class="nav-link" v-if="!user.email">Register</router-link>
+          <router-link :to="{ name: 'Add Course' }" class="nav-link" v-if="user.isAdmin">Add Course</router-link>
           <router-link :to="{ name: 'Login' }" class="nav-link" v-if="!user.email">Login</router-link>
           <router-link :to="{ name: 'Logout' }" class="nav-link" v-else>Logout</router-link>
         </div>
       </div>
+
     </div>
- </nav>
+  </nav>
 </template>
