@@ -106,20 +106,19 @@
     <div class="container-fluid">
         <h1 class="my-5 pt-3 text-dark text-center">Register Page</h1> 
         <div class="row d-flex justify-content-center">
-            <div class="col-md-5 border border rounded-3 mx-auto p-5">
+            <div class="col-md-5 border border rounded-0 mx-auto p-5">
                 <form v-on:submit="handleSubmit">
-
                     <div class="mb-3">
                         <label for="fName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" id="fName" v-model="firstName" />
+                        <input type="text" class="form-control rounded-0" id="fName" v-model="firstName" />
                     </div>
                     <div class="mb-3">
                         <label for="lName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control" id="lName" v-model="lastName" />
+                        <input type="text" class="form-control rounded-0" id="lName" v-model="lastName" />
                     </div>
                     <div class="mb-3">
                         <label for="mobile" class="form-label">Mobile Number</label>
-                        <input type="text" class="form-control" id="mobile" v-model="mobileNum" />
+                        <input type="text" class="form-control rounded-0" id="mobile" v-model="mobileNum" />
                     </div>
 
                     <div class="mb-3">
@@ -135,25 +134,25 @@
                             email = $event.target.value - update the value of the email state with the current value of the element.
                         -->
                         <!-- v-model is a directive which also allows for binding the value of an element to an exposed variable. However, v-model also automatically adds the current value of the element into the reactive state upon user input-->
-                        <input type="email" class="form-control" id="emailInput"
+                        <input type="email" class="form-control rounded-0" id="emailInput"
                         v-model="email"
                         />
                     </div>
                     <div class="mb-3">
                         <label for="passwordInput" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="passwordInput" 
+                        <input type="password" class="form-control rounded-0" id="passwordInput" 
                         v-model="password"
                         />
                     </div>
                     <div class="mb-3">
                         <label for="cpasswordInput" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control" id="cpasswordInput"  
+                        <input type="password" class="form-control rounded-0" id="cpasswordInput"  
                         v-model="confirmPass"
                         />
                     </div>
                     <div class="d-grid mt-5">
-                        <button type="submit" class="btn btn-primary btn-block" v-if=isEnabled>Submit</button>
-                        <button type="submit" class="btn btn-primary btn-block" disabled v-else>Submit</button>
+                        <button type="submit" class="btn btn-primary btn-block rounded-0" v-if=isEnabled>Submit</button>
+                        <button type="submit" class="btn btn-primary btn-block rounded-0" disabled v-else>Submit</button>
                     </div>
                 </form>
             </div>
