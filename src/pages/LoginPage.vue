@@ -88,15 +88,15 @@
 	<div class="container-fluid">
 	    <h1 class="my-5 pt-3 text-dark text-center">Login Page</h1> 
 	    <div class="row d-flex justify-content-center">
-	        <div class="col-md-5 border border rounded-3 mx-auto p-5">
+	        <div class="col-md-5 border border rounded-0 mx-auto p-5">
 	            <form v-on:submit="handleSubmit">
 	                <div class="mb-3">
 	                    <label for="emailInput" class="form-label">Email Address</label>
-	                    <input type="email" class="form-control" id="emailInput" v-model="email" />
+	                    <input type="email" class="form-control rounded-0" id="emailInput" v-model="email" />
 	                </div>
 	                <div class="mb-3">
 	                    <label for="passwordInput" class="form-label">Password</label>
-	                    <input type="password" class="form-control" id="passwordInput" v-model="password" />
+	                    <input type="password" class="form-control rounded-0" id="passwordInput" v-model="password" />
 	                </div>
 	                <div class="d-grid mt-5">
 	                	<button type="submit" class="btn btn-primary btn-block"  v-if="isEnabled">Login</button>

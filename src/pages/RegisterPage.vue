@@ -104,53 +104,26 @@
 
 <template>
     <div class="container-fluid">
-        <h1 class="my-5 pt-3 text-dark text-center">Register Page</h1> 
-        <div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center p-5">
             <div class="col-md-5 border border rounded-0 mx-auto p-5">
+                <h1 class="text-dark mb-5">Register</h1> 
                 <form v-on:submit="handleSubmit">
-                    <div class="mb-3">
-                        <label for="fName" class="form-label">First Name</label>
-                        <input type="text" class="form-control rounded-0" id="fName" v-model="firstName" />
+                    <div class="d-inline-flex gap-2 mb-3">
+                        <input type="text" class="form-control rounded-0" id="fName" placeholder="Firstname" v-model="firstName" />
+                        <input type="text" class="form-control rounded-0" id="lName" placeholder="Lastname" v-model="lastName" />
                     </div>
-                    <div class="mb-3">
-                        <label for="lName" class="form-label">Last Name</label>
-                        <input type="text" class="form-control rounded-0" id="lName" v-model="lastName" />
-                    </div>
-                    <div class="mb-3">
-                        <label for="mobile" class="form-label">Mobile Number</label>
-                        <input type="text" class="form-control rounded-0" id="mobile" v-model="mobileNum" />
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="emailInput" class="form-label">Email Address</label>
-                        <!-- v-bind:value = allows us to bind the value of this input to an exposed variable -->
-                        <!-- v-on:input is an event listener directive that allow us to run a given function as the user types in an input. -->
-                        <!-- 
-                            $event - is the event object which contains information about "what happened" in the element. This event object can be passed into the event listener function for processing.
-
-                            $event.target - is the element where the event happened.
-                            $event.target.value - the value of the element where the event happened.
-
-                            email = $event.target.value - update the value of the email state with the current value of the element.
-                        -->
-                        <!-- v-model is a directive which also allows for binding the value of an element to an exposed variable. However, v-model also automatically adds the current value of the element into the reactive state upon user input-->
-                        <input type="email" class="form-control rounded-0" id="emailInput"
-                        v-model="email"
+                    <div class="d-inline-flex gap-2 mb-3">
+                        <input type="text" class="form-control rounded-0" id="mobile" placeholder="Mobile Number" v-model="mobileNum" />
+                        <input type="email" class="form-control rounded-0" id="emailInput" placeholder="Email Address" v-model="email"
                         />
                     </div>
-                    <div class="mb-3">
-                        <label for="passwordInput" class="form-label">Password</label>
-                        <input type="password" class="form-control rounded-0" id="passwordInput" 
-                        v-model="password"
+                    <div class="d-inline-flex gap-2 mb-3">
+                        <input type="password" class="form-control rounded-0" id="passwordInput" placeholder="Password" v-model="password"
+                        />
+                        <input type="password" class="form-control rounded-0" id="cpasswordInput" placeholder="Confirm Password" v-model="confirmPass"
                         />
                     </div>
-                    <div class="mb-3">
-                        <label for="cpasswordInput" class="form-label">Confirm Password</label>
-                        <input type="password" class="form-control rounded-0" id="cpasswordInput"  
-                        v-model="confirmPass"
-                        />
-                    </div>
-                    <div class="d-grid mt-5">
+                    <div class="d-grid mt-3">
                         <button type="submit" class="btn btn-primary btn-block rounded-0" v-if=isEnabled>Submit</button>
                         <button type="submit" class="btn btn-primary btn-block rounded-0" disabled v-else>Submit</button>
                     </div>
