@@ -106,20 +106,27 @@
     <div class="container-fluid">
         <div class="row d-flex justify-content-center p-5">
             <div class="col-md-5 border border rounded-0 mx-auto p-5">
-                <h1 class="text-dark mb-5">Register</h1> 
+                <h1 class="text-dark mb-3">Register</h1> 
                 <form v-on:submit="handleSubmit">
-                    <div class="d-inline-flex gap-2 mb-3">
+                    <div class="mb-3">
                         <input type="text" class="form-control rounded-0" id="fName" placeholder="Firstname" v-model="firstName" />
+                    </div>
+                    <div class="mb-3">
                         <input type="text" class="form-control rounded-0" id="lName" placeholder="Lastname" v-model="lastName" />
                     </div>
-                    <div class="d-inline-flex gap-2 mb-3">
+                    <div class="mb-3">
                         <input type="text" class="form-control rounded-0" id="mobile" placeholder="Mobile Number" v-model="mobileNum" />
+                    </div>
+
+                    <div class="mb-3">
                         <input type="email" class="form-control rounded-0" id="emailInput" placeholder="Email Address" v-model="email"
                         />
                     </div>
-                    <div class="d-inline-flex gap-2 mb-3">
+                    <div class="mb-3">
                         <input type="password" class="form-control rounded-0" id="passwordInput" placeholder="Password" v-model="password"
                         />
+                    </div>
+                    <div class="mb-3">
                         <input type="password" class="form-control rounded-0" id="cpasswordInput" placeholder="Confirm Password" v-model="confirmPass"
                         />
                     </div>
