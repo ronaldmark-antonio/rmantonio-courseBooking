@@ -1,6 +1,6 @@
 <template>
-  <div class="col-12 col-md-6 col-lg-3 p-2 my-3 d-flex flex-row">
-    <div id="CourseCard" class="card p-2 cardHighlights shadow-sm" style="min-height: 100%">
+  <div class="col-12 col-md-6 col-lg-3 p-2 d-flex flex-row">
+    <div id="CourseCard" class="card cardHighlights shadow-sm" style="min-height: 100%">
       <img 
         class="card-img-top"
         :src="`https://placehold.co/600x400/377399/ffffff?font=lora&text=${encodeURIComponent(courseData.name)}`"
