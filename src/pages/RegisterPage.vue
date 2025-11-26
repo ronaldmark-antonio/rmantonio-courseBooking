@@ -106,7 +106,7 @@
     <div class="container-fluid">
         <div class="row d-flex justify-content-center p-5">
             <div class="col-md-5 border border rounded-0 mx-auto p-5">
-                <h1 class="text-dark mb-3">Register</h1> 
+                <h1 class="text-dark mb-5">Register</h1> 
                 <form v-on:submit="handleSubmit">
                     <div class="mb-3">
                         <input type="text" class="form-control rounded-0" id="fName" placeholder="Firstname" v-model="firstName" />
