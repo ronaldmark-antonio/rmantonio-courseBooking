@@ -24,7 +24,7 @@ export default {
   <div class="container-fluid">
     <div class="row">
             <div class="col my-5">
-                <h1 class="text-center text-primary py-1">Courses</h1>
+                <h1 class="text-center text-dark py-1">Courses</h1>
             </div>
         </div>
     <div class="row p-5">

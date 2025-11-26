@@ -104,7 +104,7 @@
 
 <template>
     <div class="container-fluid">
-        <h1 class="my-5 pt-3 text-primary text-center">Register Page</h1> 
+        <h1 class="my-5 pt-3 text-dark text-center">Register Page</h1> 
         <div class="row d-flex justify-content-center">
             <div class="col-md-5 border border rounded-3 mx-auto p-5">
                 <form v-on:submit="handleSubmit">
