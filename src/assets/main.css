@@ -1,4 +1,7 @@
-/* ACTIVITY SOLUTION START */
+html, body {
+  overflow-x: hidden;
+}
+
 #banner-title {
   font-family: 'Trebuchet MS', sans-serif;
   font-weight: bolder;
@@ -17,4 +20,3 @@
   background-position: center;
   height: 550px;
 }
-/* ACTIVITY SOLUTION END */
