@@ -21,11 +21,16 @@ export default {
 </script>
 
 <template>
-  <div class="container">
-    <CourseComponent
-      v-for="course in courses"
-      :key="course._id"
-      :courseData="course"
-    />
+  <div class="container-fluid">
+    <div class="col my-5">
+      <h1 class="text-center text-primary">Courses</h1>
+    </div>
+    <div class="row p-5 m-2">
+      <CourseComponent
+        v-for="course in courses"
+        :key="course._id"
+        :courseData="course"
+      />
+    </div>
   </div>
 </template>

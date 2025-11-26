@@ -1,12 +1,12 @@
 <template>
-  <div class="col-12 col-md-6 col-lg-4 my-3">
+  <div class="col-12 col-md-6 col-lg-3 p-2 my-3 d-flex flex-row">
     <div id="CourseCard" class="card p-2 cardHighlights shadow-sm" style="min-height: 100%">
       <img 
         class="card-img-top"
         :src="`https://placehold.co/600x400/377399/ffffff?font=lora&text=${encodeURIComponent(courseData.name)}`"
         :alt="courseData.name"
       >
-      <div class="card-body d-flex flex-column gap-2">
+      <div class="card-body d-flex flex-column">
         <h4 class="card-title fw-bold mb-2">
           {{ courseData.name }}
         </h4>
@@ -17,7 +17,7 @@
           <span class="fw-semibold">Price:</span> PHP {{ courseData.price }}
         </p>
         <div class="d-grid d-md-block mt-md-auto">
-          <router-link class="btn btn-outline-primary d-block" :to="{ path: `/courses/${courseData._id}`}">View Course</router-link>
+          <router-link class="btn btn-primary d-block" :to="{ path: `/courses/${courseData._id}`}">View Course</router-link>
         </div>
       </div>
     </div>
