@@ -120,7 +120,7 @@
                     {{ course.data.description }}
                 </p>
                 <!-- Display the course price -->
-                <p>Price: &#8369;{{ course.data.price }}</p>
+                <p>Price: &#8369;{{ course.data.price.toLocaleString() }}</p>
                 
                 <!-- Add a click event to the Enroll button to trigger the handleEnroll function -->
                 <!-- use v-if to check if the user email exists and if the user is not an admin -->
