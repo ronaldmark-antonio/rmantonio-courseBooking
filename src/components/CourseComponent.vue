@@ -14,7 +14,7 @@
           {{ courseData.description.slice(0, 100) + (courseData.description.length > 100 ? '...' : '') }}
         </p>
         <p class="mb-3">
-          <span>Price:</span> &#8369;{{ courseData.price }}
+          <span>Price:</span> &#8369;{{ courseData.price.toLocaleString() }}
         </p>
         <div class="d-grid d-md-block mt-md-auto">
           <router-link class="btn btn-primary d-block rounded-0" :to="{ path: `/courses/${courseData._id}`}">View Course</router-link>
