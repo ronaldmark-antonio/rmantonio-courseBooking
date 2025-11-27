@@ -135,6 +135,10 @@
                         <button type="submit" class="btn btn-primary btn-block rounded-0" disabled v-else>Submit</button>
                     </div>
                 </form>
+                <p class="text-center p-3 mb-1">
+                  Already have an account? 
+                  <RouterLink to="/login" class="text-primary">Click here</RouterLink> to log in.
+              </p>
             </div>
         </div>
     </div>
