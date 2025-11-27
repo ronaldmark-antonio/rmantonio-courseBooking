@@ -83,15 +83,19 @@
 
 <template>
     <div class="container">
-        <nav class="my-3" aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><router-link to="/courses">Courses</router-link></li>
-                <!-- Display the course name in the breakcrumb -->
-                <li class="breadcrumb-item active" aria-current="page">
-                    {{ course.data ? course.data.name : "..." }}
-                </li>
-            </ol>
+       <nav class="my-3" aria-label="breadcrumb">
+          <ol class="breadcrumb bg-white rounded-3 p-2">
+            <li class="breadcrumb-item">
+              <router-link to="/courses" class="text-decoration-none text-primary">
+                <i class="bi bi-book"></i> Courses
+              </router-link>
+            </li>
+            <li class="breadcrumb-item active text-primary fw-semibold" aria-current="page">
+              <i class="bi bi-file-earmark-text"></i> {{ course.data ? course.data.name : "..." }}
+            </li>
+          </ol>
         </nav>
+
         <!-- Add conditional rendering with v-if to display the course data when it is available -->
         <div class="row mx-auto my-3 gap-4 gap-md-0" v-if="course.data">
             <div class="col-12 col-md-6">
