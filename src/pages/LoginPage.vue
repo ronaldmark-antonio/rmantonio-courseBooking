@@ -88,7 +88,7 @@
 	<div class="container-fluid">
 	    <div class="row d-flex justify-content-center p-5">
 	        <div class="col-md-5 border border rounded-0 mx-auto p-5">
-                <h1 class="text-dark mb-5">Login Page</h1> 
+                <h1 class="text-dark mb-5">Login</h1> 
 	            <form v-on:submit="handleSubmit">
 	                <div class="mb-3">
 	                    <input type="email" class="form-control rounded-0" id="emailInput" placeholder="Email Address" v-model="email" />
@@ -101,6 +101,10 @@
                 		<button type="submit" class="btn btn-primary btn-block rounded-0" disabled v-else>Login</button>
 	                </div>
 	            </form>
+               <p class="text-center mt-3">
+                  Don't have an account yet? 
+                  <RouterLink to="/register" class="text-success">Click here</RouterLink> to register.
+              </p>
 	        </div>
 	    </div>
     </div>
