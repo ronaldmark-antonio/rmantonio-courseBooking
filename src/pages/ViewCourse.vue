@@ -98,25 +98,25 @@
                 <!-- placehold.co will generate a placeholder image based on the text provided -->
                  <!-- Display the course name in the image -->
                 <img
-                    class="img-fluid rounded"
+                    class="img-fluid rounded-0"
                     :src="`https://placehold.co/600x400/377399/ffffff?font=lora&text=${encodeURIComponent(
                         course.data.name
                     )}`"
                 />
             </div>
             <div class="col-12 col-md-6">
-                <div class="d-flex gap-2 text-primary">
-                    <h1 class="bi bi-mortarboard"></h1>
+                <div class="d-flex gap-2 text-dark">
+                    <h1 class="bi bi-mortarboard text-primary"></h1>
                     <!-- Display the course name -->
                     <h1 class="mb-3">{{ course.data.name }}</h1>
                 </div>
-                <h6>Course Description:</h6>
+                <h6>Description:</h6>
                 <p class="text-muted">
                     <!-- Display the course description -->
                     {{ course.data.description }}
                 </p>
                 <!-- Display the course price -->
-                <p>Price: PHP {{ course.data.price }}</p>
+                <p>Price: &#8369;{{ course.data.price }}</p>
                 
                 <!-- Add a click event to the Enroll button to trigger the handleEnroll function -->
                 <!-- use v-if to check if the user email exists and if the user is not an admin -->
@@ -124,11 +124,11 @@
                     Enroll
                 </button>
                 <!-- add another v-if to check if the user is an admin and disable the button -->
-                <button class="btn btn-danger" type="button" v-if="user.email && user.isAdmin" disabled>
+                <button class="btn btn-outline-primary rounded-0" type="button" v-if="user.email && user.isAdmin" disabled>
                     Admin are not allowed to enroll
                 </button>
                 <!-- add another v-if to check if the user is not logged in and redirect them to the login page  -->
-                <router-link to="/login" class="btn btn-outline-danger" type="button" v-if="!user.email">
+                <router-link to="/login" class="btn btn-outline-primary rounded-0" type="button" v-if="!user.email">
                     Login to Enroll
                 </router-link>
                 
