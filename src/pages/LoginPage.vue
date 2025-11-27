@@ -103,7 +103,7 @@
 	            </form>
                <p class="text-center mt-3">
                   Don't have an account yet? 
-                  <RouterLink to="/register" class="text-success">Click here</RouterLink> to register.
+                  <RouterLink to="/register" class="text-primary">Click here</RouterLink> to register.
               </p>
 	        </div>
 	    </div>
