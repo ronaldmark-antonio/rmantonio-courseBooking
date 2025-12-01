@@ -78,9 +78,9 @@ try {
     <div class="container-fluid">
         <div class="row d-flex justify-content-center">
             <h1 class="my-5 pt-3 text-dark text-center">Add Course</h1> 
-            <div class="col-md-10 rounded-3 mx-auto p-2">
+            <div class="col-md-6 rounded-3 mx-auto p-2">
                 <form @submit="addCourse">
-                    <div class="form-group mt-3">
+                    <div class="form-group">
                         <input type="text" class="form-control rounded-0" id="nameInput" aria-describedby="nameHelp" placeholder="Name" v-model="name">
                     </div>
                     <div class="form-group mt-3">
@@ -90,9 +90,9 @@ try {
                         <input type="number" class="form-control rounded-0" id="priceInput" aria-describedby="priceHelp" placeholder="Price" min="0" v-model="price">
                     </div>
                     <div class="text-end">
-                        <button type="submit" class="btn btn-primary my-3 rounded-0 mx-2" v-if="!isEnabled" disabled>Cancel</button>
+                        <button type="button" class="btn btn-outline-primary rounded-0 mx-2" @click="$router.push('/courses')">Cancel</button>     
                         <button type="submit" class="btn btn-primary my-3 rounded-0" v-if="!isEnabled" disabled>Submit</button>
-                        <button type="submit" class="btn btn-primary mt-3 flat" v-else>Submit</button>
+                        <button type="submit" class="btn btn-primary mt-3 rounded-0" v-else>Submit</button>
                     </div>
                 </form>
             </div>
