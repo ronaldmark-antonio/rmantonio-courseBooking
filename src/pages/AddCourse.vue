@@ -81,19 +81,19 @@ try {
             <div class="col-md-10 rounded-3 mx-auto p-2">
                 <form @submit="addCourse">
                     <div class="form-group mt-3">
-                        <label for="nameInput">Name:</label>
-                        <input type="text" class="form-control" id="nameInput" aria-describedby="nameHelp" placeholder="Enter Name" v-model="name">
+                        <input type="text" class="form-control rounded-0" id="nameInput" aria-describedby="nameHelp" placeholder="Name" v-model="name">
                     </div>
                     <div class="form-group mt-3">
-                        <label for="descriptionInput">Description:</label>
-                        <input class="form-control" id="descriptionInput" rows="5" placeholder="Enter Description"v-model="description">
+                        <textarea class="form-control rounded-0" id="descriptionInput" rows="5" placeholder="Description"v-model="description"> </textarea>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="priceInput">Price:</label>
-                        <input type="number" class="form-control" id="priceInput" aria-describedby="priceHelp" placeholder="Enter Price" min="0" v-model="price">
+                        <input type="number" class="form-control rounded-0" id="priceInput" aria-describedby="priceHelp" placeholder="Price" min="0" v-model="price">
                     </div>
-                    <button type="submit" class="btn btn-primary mt-3" v-if="!isEnabled" disabled>Submit</button>
-                    <button type="submit" class="btn btn-primary mt-3" v-else>Submit</button>
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary my-3 rounded-0 mx-2" v-if="!isEnabled" disabled>Cancel</button>
+                        <button type="submit" class="btn btn-primary my-3 rounded-0" v-if="!isEnabled" disabled>Submit</button>
+                        <button type="submit" class="btn btn-primary mt-3 flat" v-else>Submit</button>
+                    </div>
                 </form>
             </div>
         </div>
