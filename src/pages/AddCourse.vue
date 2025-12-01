@@ -12,10 +12,13 @@ const router = useRouter();
 const course = reactive({ data: null });
 
 onBeforeMount(() => {
-        if(!user.email || !user.isAdmin){
-            router.push({path: '/courses'})
-        }
-    })
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        router.push("/courses");
+    }
+});
+
 
 const name = ref("");
 const description = ref("");
@@ -87,7 +90,10 @@ try {
                         <textarea class="form-control rounded-0" id="descriptionInput" rows="5" placeholder="Description"v-model="description"> </textarea>
                     </div>
                     <div class="form-group mt-3">
-                        <input type="number" class="form-control rounded-0" id="priceInput" aria-describedby="priceHelp" placeholder="Price" min="0" v-model="price">
+                        <div class="input-group">
+                            <span class="input-group-text rounded-0">₱</span>
+                            <input type="number" class="form-control rounded-0" placeholder="0.00" min="0" v-model="price">
+                        </div>
                     </div>
                     <div class="text-end">
                         <button type="button" class="btn btn-outline-primary rounded-0 mx-2" @click="$router.push('/courses')">Cancel</button>     
