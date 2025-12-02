@@ -103,24 +103,17 @@ try {
                         <input type="text" class="form-control rounded-0" id="nameInput" aria-describedby="nameHelp" placeholder="Name" v-model="name">
                     </div>
                     <div class="form-group mt-3">
-                        <textarea class="form-control rounded-0" id="descriptionInput" rows="5" placeholder="Description"v-model="description"> </textarea>
+                        <textarea class="form-control rounded-0" id="descriptionInput" rows="5" placeholder="Description" v-model="description"></textarea>
                     </div>
                     <div class="form-group mt-3">
                         <div class="input-group">
                             <span class="input-group-text rounded-0">₱</span>
-                            <input 
-                            type="text" 
-                            class="form-control rounded-0" 
-                            placeholder="Price" 
-                            v-model="formattedPrice"
-                            @input="price = $event.target.value"
-                            />
+                            <input type="text" class="form-control rounded-0" placeholder="Price" v-model="formattedPrice" @input="price = $event.target.value">
                         </div>
                     </div>
                     <div class="text-end">
-                        <button type="button" class="btn btn-outline-primary rounded-0 mx-2" @click="$router.push('/courses')">Cancel</button>     
-                        <button type="submit" class="btn btn-primary my-3 rounded-0" v-if="!isEnabled" disabled>Submit</button>
-                        <button type="submit" class="btn btn-primary mt-3 rounded-0" v-else>Submit</button>
+                        <button type="button" class="btn btn-outline-primary rounded-0 my-3 mx-2" @click="$router.push('/courses')">Cancel</button>
+                        <button type="submit" class="btn btn-primary my-3 rounded-0" :disabled="!isEnabled">Submit</button>
                     </div>
                 </form>
             </div>
