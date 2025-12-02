@@ -23,6 +23,7 @@ onBeforeMount(() => {
 const name = ref("");
 const description = ref("");
 const price = ref("");
+const formattedPrice = ref("");
 const isEnabled = ref(false)
 
 watch([ name, description, price], (currentValue, oldValue) => {
@@ -32,6 +33,21 @@ watch([ name, description, price], (currentValue, oldValue) => {
         isEnabled.value = false
     }
 })
+
+watch(price, (newVal) => {
+    if (newVal === "" || newVal === null) {
+        formattedPrice.value = "";
+        return;
+    }
+
+    let clean = newVal.toString().replace(/,/g, "");
+
+    formattedPrice.value = Number(clean).toLocaleString("en-US", {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 2
+    });
+});
+
 
 async function addCourse(e) {
 e.preventDefault();
@@ -48,7 +64,7 @@ try {
     }, body: JSON.stringify({
             name: name.value,
             description: description.value,
-            price: Number(price.value)
+            price: Number(price.value.replace(/,/g, ""))
         })
     });
 
@@ -92,7 +108,13 @@ try {
                     <div class="form-group mt-3">
                         <div class="input-group">
                             <span class="input-group-text rounded-0">₱</span>
-                            <input type="number" class="form-control rounded-0" placeholder="0.00" min="0" v-model="price">
+                            <input 
+                            type="text" 
+                            class="form-control rounded-0" 
+                            placeholder="Price" 
+                            v-model="formattedPrice"
+                            @input="price = $event.target.value"
+                            />
                         </div>
                     </div>
                     <div class="text-end">
