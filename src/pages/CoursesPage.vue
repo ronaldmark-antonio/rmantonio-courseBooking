@@ -22,12 +22,12 @@ export default {
 
 <template>
   <div class="container-fluid">
-    <div class="row">
-            <div class="col my-5">
+    <div class="row mt-3">
+            <div class="col my-3">
                 <h1 class="text-center text-dark py-1">Courses</h1>
             </div>
         </div>
-    <div class="row p-5">
+    <div class="row p-3 m-3">
       <CourseComponent
         v-for="course in courses"
         :key="course._id"
