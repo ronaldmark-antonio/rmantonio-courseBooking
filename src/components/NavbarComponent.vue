@@ -52,7 +52,7 @@
 
       <!-- Navbar links -->
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto">
+        <div class="navbar-nav ms-auto text-center text-lg-start">
           <router-link :to="{ name: 'Courses' }" class="nav-link">Courses</router-link>
           <router-link :to="{ name: 'Register' }" class="nav-link" v-if="!user.email">Register</router-link>
           <router-link :to="{ name: 'Add Course' }" class="nav-link" v-if="user.isAdmin">Add Course</router-link>
