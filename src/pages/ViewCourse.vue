@@ -83,16 +83,26 @@
 
 <template>
     <div class="container">
-       <nav class="my-3" aria-label="breadcrumb">
+        <nav class="my-3" aria-label="breadcrumb">
           <ol class="breadcrumb bg-white rounded-3 p-2">
+
+            <li class="breadcrumb-item">
+              <router-link to="/" class="text-decoration-none text-primary">
+                <i class="bi bi-house"></i> Home
+              </router-link>
+            </li>
+
             <li class="breadcrumb-item">
               <router-link to="/courses" class="text-decoration-none text-primary">
                 <i class="bi bi-book"></i> Courses
               </router-link>
             </li>
+
             <li class="breadcrumb-item active text-primary fw-semibold" aria-current="page">
-              <i class="bi bi-file-earmark-text"></i> {{ course.data ? course.data.name : "..." }}
+              <i class="bi bi-file-earmark-text"></i> 
+              {{ course.data ? course.data.name : "..." }}
             </li>
+
           </ol>
         </nav>
 
@@ -114,8 +124,8 @@
                     <!-- Display the course name -->
                     <h1 class="mb-3">{{ course.data.name }}</h1>
                 </div>
-                <h6>Description:</h6>
-                <p class="text-muted">
+                <h6 class="mb-1">Description:</h6>
+                <p class="text-muted mb-0">
                     <!-- Display the course description -->
                     {{ course.data.description }}
                 </p>
@@ -133,7 +143,7 @@
                 </button>
                 <!-- add another v-if to check if the user is not logged in and redirect them to the login page  -->
                 <router-link to="/login" class="btn btn-outline-primary rounded-0" type="button" v-if="!user.email">
-                    Login to Enroll
+                    Login to enroll
                 </router-link>
                 
             </div>
