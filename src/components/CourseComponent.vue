@@ -7,17 +7,17 @@
         :alt="courseData.name"
       >
       <div class="card-body d-flex flex-column">
-        <h4 class="card-title fw-bold mb-2">
+        <h4 class="card-title fw-bold mb-0">
           {{ courseData.name }}
         </h4>
-        <p class="card-text text-muted mb-2">
+        <p class="card-text text-muted mb-0">
           {{ courseData.description.slice(0, 100) + (courseData.description.length > 100 ? '...' : '') }}
         </p>
         <p class="mb-3">
           <span>Price:</span> &#8369;{{ courseData.price.toLocaleString() }}
         </p>
         <div class="d-grid d-md-block mt-md-auto">
-          <router-link class="btn btn-primary d-block rounded-0" :to="{ path: `/courses/${courseData._id}`}">View Course</router-link>
+          <router-link class="btn btn-primary d-block rounded-0" :to="{ path: `/courses/${courseData._id}`}">View course</router-link>
         </div>
       </div>
     </div>
