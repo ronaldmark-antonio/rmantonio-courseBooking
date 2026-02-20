@@ -86,18 +86,24 @@
         <nav class="my-3" aria-label="breadcrumb">
           <ol class="breadcrumb bg-white rounded-3 p-2">
 
-            <li class="breadcrumb-item">
+            <!-- Home (Only if NOT Admin) -->
+            <li 
+              class="breadcrumb-item"
+              v-if="!user.isAdmin"
+            >
               <router-link to="/" class="text-decoration-none text-primary">
                 <i class="bi bi-house"></i> Home
               </router-link>
             </li>
 
+            <!-- Courses -->
             <li class="breadcrumb-item">
               <router-link to="/courses" class="text-decoration-none text-primary">
                 <i class="bi bi-book"></i> Courses
               </router-link>
             </li>
 
+            <!-- Current Course -->
             <li class="breadcrumb-item active text-primary fw-semibold" aria-current="page">
               <i class="bi bi-file-earmark-text"></i> 
               {{ course.data ? course.data.name : "..." }}
@@ -139,7 +145,7 @@
                 </button>
                 <!-- add another v-if to check if the user is an admin and disable the button -->
                 <button class="btn btn-outline-primary rounded-0" type="button" v-if="user.email && user.isAdmin" disabled>
-                    Admin are not allowed to enroll
+                    Admin is not allowed to enroll
                 </button>
                 <!-- add another v-if to check if the user is not logged in and redirect them to the login page  -->
                 <router-link to="/login" class="btn btn-outline-primary rounded-0" type="button" v-if="!user.email">
