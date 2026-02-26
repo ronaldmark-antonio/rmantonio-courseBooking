@@ -1,5 +1,5 @@
 <script setup>
- /* ACTIVITY SOLUTION START */
+/* ACTIVITY SOLUTION START */
 //import both watch and ref hooks     
     import { watch, ref, onBeforeMount } from 'vue';
 //import Notyf to allow the use of an alternative notification window.
@@ -26,8 +26,9 @@
     const router = useRouter()
     const {user} = useGlobalStore();
 
+    const isSubmitting = ref(false);
 
- /* ACTIVITY SOLUTION START */
+/* ACTIVITY SOLUTION START */
     onBeforeMount(() => {
         if(user.email){
             router.push({path: '/courses'})
@@ -36,7 +37,7 @@
 
     watch([ email, password,confirmPass], (currentValue, oldValue) => {
 
-    //console.log(currentValue);
+//console.log(currentValue);
 
         if(currentValue.every(input => input) && currentValue[1] === currentValue[2]){
             isEnabled.value = true
@@ -46,49 +47,44 @@
     })
 
     async function handleSubmit(e){
-
-        console.log("submitted");
-
         e.preventDefault();
 
-        try{
+    if(isSubmitting.value) return; // prevent double click
 
-        // await axios.post("http://localhost:4000/users/checkEmail", {
-        //     email: email.value
-        // })]
-            console.log("trying...")
+    isSubmitting.value = true;
 
-            let response = await axios.post('https://coursebookingapi.onrender.com/users/register', {
+    try{
+
+        let response = await axios.post(
+            'https://coursebookingapi.onrender.com/users/register',
+            {
                 firstName: firstName.value,
                 lastName: lastName.value,
                 email: email.value,
                 mobileNo: mobileNum.value,
                 password: password.value
-            })
+            }
+            );
 
-            console.log(response);
-
-        if(response.status === 201){ // 201 - CREATED
+        if(response.status === 201){
 
             notyf.success(response.data.message);
 
             firstName.value = "";
             lastName.value = "";
-            mobileNum.value = ""
+            mobileNum.value = "";
             email.value = "";
             password.value = "";
             confirmPass.value = "";
 
-            router.push({path: '/login'})
+            router.push({path: '/login'});
         }
-        else {
-            notyf.error("Registration failed. Please contact administrator")
-        }
+
     }
     catch(err){
 
         if(err.response && err.response.status === 409){
-            notyf.error("Email already exists");
+            notyf.error("Email Address already exists");
         }
         else if(err.response && err.response.data.message){
             notyf.error(err.response.data.message);
@@ -97,12 +93,16 @@
             notyf.error("Register Failed. Please contact administrator");
         }
 
-    }    
+    }
+    finally{
+        isSubmitting.value = false; // always reset
+    }
 }
 
 function handleMobileInput() {
-  mobileNum.value = mobileNum.value.replace(/[^0-9]/g, '');
+    mobileNum.value = mobileNum.value.replace(/[^0-9]/g, '');
 }
+
 </script>
 
 <template>
@@ -166,11 +166,17 @@ function handleMobileInput() {
                   </div>
 
                   <div class="d-grid mt-3">
-                    <button type="submit" class="btn btn-primary btn-block rounded-0" v-if=isEnabled>Submit</button>
-                    <button type="submit" class="btn btn-primary btn-block rounded-0" disabled v-else>Submit</button>
-                </div>
-            </form>
-            <p class="text-center p-3 mb-1">
+                      <button
+                      type="submit"
+                      class="btn btn-primary btn-block rounded-0"
+                      :disabled="!isEnabled || isSubmitting"
+                      >
+                      <span v-if="isSubmitting">Submitting...</span>
+                      <span v-else>Submit</span>
+                  </button>
+              </div>
+          </form>
+          <p class="text-center p-3 mb-1">
               Already have an account? 
               <RouterLink to="/login" class="text-primary">Click here</RouterLink> to log in.
           </p>
