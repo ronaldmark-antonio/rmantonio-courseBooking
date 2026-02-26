@@ -82,22 +82,22 @@ async function handleSubmit(e){
             router.push({path: '/login'})
         }
         else {
-            notyf.error("Registration failed. Please contact administrator.")
+            notyf.error("Registration failed. Please contact administrator")
         }
     }
     catch(err){
 
-        // Add a check to see if the error is a 404, 401, or 400 status code.
-        // If it is, use the notyf.error() method and pass the error message to notify the user of the failed login.
-        // These status codes are defined in the our backend API. Any other error code will be considered an unexpected error. 
-        // if(err.response.status === 404 || err.response.status === 401 || err.response.status === 400){
-        //     notyf.error(err.response.data.message);
-        // } else {
-        notyf.error("Register Failed. Please contact administrator.");
-        // }
+        if(err.response && err.response.status === 409){
+            notyf.error("Email already exists");
+        }
+        else if(err.response && err.response.data.message){
+            notyf.error(err.response.data.message);
+        }
+        else {
+            notyf.error("Register Failed. Please contact administrator");
+        }
 
-
-    }      
+    }    
 }
 </script>
 
