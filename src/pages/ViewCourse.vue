@@ -86,10 +86,9 @@
         <nav class="my-3" aria-label="breadcrumb">
           <ol class="breadcrumb bg-white rounded-3 p-2">
 
-            <!-- Home (Only if NOT Admin) -->
             <li 
               class="breadcrumb-item"
-              v-if="!user.isAdmin"
+              v-if="!user.email"
             >
               <router-link to="/" class="text-decoration-none text-primary">
                 <i class="bi bi-house"></i> Home
