@@ -1,86 +1,59 @@
 <!-- a. Update the script block and add an onBeforeMount() method to retrieve the course details with axios. -->
 <script setup>
-    import { onBeforeMount, reactive } from "vue";
-    //import useRoute to access details from the route.
-    // import useRouter to access methods for page navigation.
-    import { useRoute, useRouter } from "vue-router";
-    import api from "../api";
+import { onBeforeMount, reactive, ref } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import api from "../api";
+import { useGlobalStore } from "../stores/global";
+import { Notyf } from "notyf";
 
-    // import global stores, which contains our global user states.
-    import { useGlobalStore } from "../stores/global";
+const notyf = new Notyf();
+const { user } = useGlobalStore();
+const router = useRouter();
+const course = reactive({ data: null });
 
-    // Import and instanciate Notyf for notifications toast
-    import { Notyf } from "notyf";
+// ✅ Loading state for Enroll button
+const isEnrolling = ref(false);
 
-    const notyf = new Notyf();
+async function handleEnroll() {
 
-    //Get the global user state from the global store.
-    const { user } = useGlobalStore();
+    if (!user.email) {
+        notyf.error("Please login first");
+        router.push({ name: "Login" });
+        return;
+    }
 
-    //useRouter() returns our configurated router as an object with different methods for page navigation.
-    const router = useRouter();
+    if (isEnrolling.value) return; // prevent double clicks
+    isEnrolling.value = true;
 
-    //Create a course reactive state to store the course details retreived from the Database.
-    const course = reactive({ data: null });
-
-    //Create the handleEnroll() function as async to allow the use of await.
-    async function handleEnroll() {
-        //api.post() is an alias to the axios() method.
-        //It is a shortcut to creating an axios post request. This will no longer need us to add the method of the request.
-        //api.post(url,data,options)
-        // this request required authrozation header (token) but since we already setup the interceptor, we don't need to add it.
-        //destructure the response object returned by api.post() and save the data property.
-        let { data } = await api.post(
+    try {
+        const { data } = await api.post(
             `https://coursebookingapi.onrender.com/enrollments/enroll`,
             {
-                //Pass the courseId, we can access the course's id from the retrieve course details.
-                enrolledCourses: [
-                    {
-                        courseId: course.data._id
-                    },
-                ],
+                enrolledCourses: [{ courseId: course.data._id }],
                 totalPrice: course.data.price
             }
         );
 
-        //data.success returned is a boolean. Add an if statement which will check if successfully enrolled a student into the course.
-        if(data.success === true){
-
-            notyf.success(data.message)
-            router.push({path: '/courses'});
-
+        if (data.success === true) {
+            notyf.success(data.message);
+            router.push({ path: '/courses' });
         } else {
-
-            notyf.error("Enrollment Failed")
-
+            notyf.error("Enrollment Failed");
         }
+
+    } catch (err) {
+        notyf.error("Enrollment Failed. Please try again.");
+    } finally {
+        isEnrolling.value = false;
     }
+}
 
-    onBeforeMount(async () => {
-        //Create an instance of the route by using the useRoute() method.
-        //This will return an object that contains details about the current route.
-        //Including its path and params.
-        //params contain the data passed in the url.
-        //the property name of params is based on the name given in the route setup in main.js
-        const route = useRoute();
-        //console.log(route);
-
-        //axios.get() is an alias of the axios() method.
-        //It is a shortcut to creating an axios get request. This will no longer need us to add the method of the request.
-        //Instead it takes 3 arguments. The url, the data (body),options(headers)
-        //The url is a string and is the route to the resource.
-        //data is an object which acts as the request body.
-        //options is an object that can contain the headers.
-        //axios.get(url,data,options)
-        let { data } = await api.get(`https://coursebookingapi.onrender.com/courses/specific/${route.params.id}`);
-
-        //console.log(data);
-
-        //Update the reactive course state with the data retrieved from the API.
-        course.data = data;
-    });
+onBeforeMount(async () => {
+    const route = useRoute();
+    const { data } = await api.get(`https://coursebookingapi.onrender.com/courses/specific/${route.params.id}`);
+    course.data = data;
+});
 </script>
-
 <template>
     <div class="container">
         <nav class="my-3" aria-label="breadcrumb">
@@ -139,8 +112,16 @@
                 
                 <!-- Add a click event to the Enroll button to trigger the handleEnroll function -->
                 <!-- use v-if to check if the user email exists and if the user is not an admin -->
-                <button class="btn btn-primary" type="button" v-if="user.email && !user.isAdmin" @click="handleEnroll">
-                    Enroll
+                <!-- Enroll button with loading state -->
+                <button 
+                    class="btn btn-primary" 
+                    type="button" 
+                    v-if="user.email && !user.isAdmin" 
+                    @click="handleEnroll"
+                    :disabled="isEnrolling"
+                >
+                    <span v-if="isEnrolling">Enrolling...</span>
+                    <span v-else>Enroll</span>
                 </button>
                 <!-- add another v-if to check if the user is an admin and disable the button -->
                 <button class="btn btn-outline-primary rounded-0" type="button" v-if="user.email && user.isAdmin" disabled>
