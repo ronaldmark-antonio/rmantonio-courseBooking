@@ -28,9 +28,11 @@
           <button 
             v-if="!user.isAdmin"
             class="btn btn-primary rounded-0"
+            :disabled="isEnrolling"
             @click="handleEnroll"
           >
-            Enroll
+            <span v-if="isEnrolling">Enrolling...</span>
+            <span v-else>Enroll</span>
           </button>
 
           <!-- View Course -->
@@ -52,6 +54,7 @@
 import { useRouter } from "vue-router";
 import { useGlobalStore } from "../stores/global";
 import { Notyf } from "notyf";
+import { ref } from "vue";
 
 const notyf = new Notyf();
 
@@ -59,24 +62,39 @@ export default {
   props: {
     courseData: Object
   },
-  setup() {
+  setup(props) {
     const { user } = useGlobalStore();
     const router = useRouter();
+    const isEnrolling = ref(false);
 
-    const handleEnroll = () => {
+    const handleEnroll = async () => {
 
       if (!user.email) {
-        notyf.error("Please login first.");
+        notyf.error("Please login first");
         router.push({ name: "Login" });
         return;
       }
 
-      notyf.success("Successfully enrolled!");
+      if (isEnrolling.value) return;
+
+      isEnrolling.value = true;
+
+      try {
+        // simulate API call (replace with real axios call later)
+        await new Promise(resolve => setTimeout(resolve, 1000));
+
+        notyf.success("Successfully enrolled");
+      } catch (err) {
+        notyf.error("Enrollment failed");
+      } finally {
+        isEnrolling.value = false;
+      }
     };
 
     return {
       user,
-      handleEnroll
+      handleEnroll,
+      isEnrolling
     };
   }
 };
