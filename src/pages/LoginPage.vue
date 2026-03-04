@@ -1,14 +1,12 @@
-<!-- ACTIVITY SOLUTION START -->
 <script setup>
-
-    import { watch, ref, onBeforeMount } from 'vue';
-    import { Notyf } from 'notyf'; 
-import { useGlobalStore } from '../stores/global'; // <<
-import { useRouter } from 'vue-router'; // <<
+import { watch, ref, onBeforeMount } from 'vue';
+import { Notyf } from 'notyf'; 
+import { useGlobalStore } from '../stores/global';
+import { useRouter } from 'vue-router';
 import axios from 'axios';
 
-const router = useRouter() // <<
-const {getUserDetails, user} = useGlobalStore(); // <<
+const router = useRouter()
+const { getUserDetails, user } = useGlobalStore();
 
 const email = ref("");
 const password = ref("");
@@ -45,7 +43,7 @@ async function handleSubmit(e){
         });
 
         if(res.data){
-            notyf.success("Login Successful");
+            notyf.success("Login successful");
             localStorage.setItem("token", res.data.access);   
             getUserDetails(res.data.access);
 
@@ -65,7 +63,7 @@ async function handleSubmit(e){
             notyf.error(err.response.data.message);
 
     } else {
-        notyf.error("Login Failed. Please contact administrator.");
+        notyf.error("Login Failed. Please contact administrator");
     }
 
 } finally {
@@ -124,4 +122,3 @@ onBeforeMount(()=> {
   </div>
 </div>
 </template>
-<!-- ACTIVITY SOLUTION END -->
