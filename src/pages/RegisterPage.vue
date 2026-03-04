@@ -1,55 +1,45 @@
 <script setup>
-/* ACTIVITY SOLUTION START */
-//import both watch and ref hooks     
-    import { watch, ref, onBeforeMount } from 'vue';
-//import Notyf to allow the use of an alternative notification window.
-    import { Notyf } from 'notyf';
-    import { useRouter } from 'vue-router';
-    import { useGlobalStore } from '../stores/global.js';
-    import axios from 'axios';
-/* ACTIVITY SOLUTION END */
+import { watch, ref, onBeforeMount } from 'vue';
+import { Notyf } from 'notyf';
+import { useRouter } from 'vue-router';
+import { useGlobalStore } from '../stores/global.js';
+import axios from 'axios';
 
-//Create a reactive state for each user input
-//We will bind the input to our reactive state
+const firstName = ref("");
+const lastName = ref("");
+const mobileNum = ref("");
+const email = ref("");
+const password = ref("");
+const confirmPass = ref("");
+const isEnabled = ref(false)
+const showPassword = ref(false);
+const showConfirmPassword = ref(false);
 
-    const firstName = ref("");
-    const lastName = ref("");
-    const mobileNum = ref("");
-    const email = ref("");
-    const password = ref("");
-    const confirmPass = ref("");
-    const isEnabled = ref(false)
-    const showPassword = ref(false);
-    const showConfirmPassword = ref(false);
+const notyf = new Notyf();
+const router = useRouter()
+const {user} = useGlobalStore();
 
-    const notyf = new Notyf();
-    const router = useRouter()
-    const {user} = useGlobalStore();
+const isSubmitting = ref(false);
 
-    const isSubmitting = ref(false);
+onBeforeMount(() => {
+    if(user.email){
+        router.push({path: '/courses'})
+    }
+})
 
-/* ACTIVITY SOLUTION START */
-    onBeforeMount(() => {
-        if(user.email){
-            router.push({path: '/courses'})
-        }
-    })
+watch([ email, password,confirmPass], (currentValue, oldValue) => {
 
-    watch([ email, password,confirmPass], (currentValue, oldValue) => {
-
-//console.log(currentValue);
-
-        if(currentValue.every(input => input) && currentValue[1] === currentValue[2]){
-            isEnabled.value = true
-        } else {
-            isEnabled.value = false
-        }
-    })
+    if(currentValue.every(input => input) && currentValue[1] === currentValue[2]){
+        isEnabled.value = true
+    } else {
+        isEnabled.value = false
+    }
+})
 
     async function handleSubmit(e){
         e.preventDefault();
 
-    if(isSubmitting.value) return; // prevent double click
+    if(isSubmitting.value) return;
 
     isSubmitting.value = true;
 
@@ -95,7 +85,7 @@
 
     }
     finally{
-        isSubmitting.value = false; // always reset
+        isSubmitting.value = false;
     }
 }
 
