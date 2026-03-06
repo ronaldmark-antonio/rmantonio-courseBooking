@@ -49,37 +49,38 @@ const handleReset = async () => {
 
     notyf.success(response.data.message || 'Password reset successfully')
 
-    // Clear sensitive data and logout
     newPassword.value = ''
     confirmPassword.value = ''
 
-    // Remove token and reset store
     localStorage.removeItem('token')
     user.token = null
     user.email = null
     user.firstName = null
     user.lastName = null
 
-    // Redirect to login
     router.push('/login')
 
   } catch (err) {
-    const msg = err.response?.data?.message || 'Password must be at least 8 characters'
-    notyf.error(msg)
+      const msg = err.response?.data?.message || 'Password must be at least 8 characters'
+      notyf.error(msg)
   } finally {
-    loading.value = false
+      loading.value = false
   }
 }
 
 onBeforeMount(async () => {
-  if (!user.token) {
+  const token = user.token || localStorage.getItem('token')
+
+  if (!token) {
     router.push('/login')
     return
   }
 
+  loading.value = true
+
   try {
-    const { data } = await api.get('https://rmantonio-coursebookingapi.onrender.com/users/details', {
-      headers: { Authorization: `Bearer ${user.token}` },
+    const { data } = await api.get('/users/details', {
+      headers: { Authorization: `Bearer ${token}` },
     })
 
     firstName.value = data.firstName || ''
@@ -87,8 +88,12 @@ onBeforeMount(async () => {
     mobileNo.value = data.mobileNo || ''
     email.value = data.email || ''
     isAdmin.value = data.isAdmin || false
+
   } catch (err) {
-    notyf.error('Failed to load profile info.')
+    console.error(err)
+    notyf.error(err.response?.data?.message || 'Failed to load profile info.')
+  } finally {
+    loading.value = false
   }
 })
 </script>
@@ -97,24 +102,13 @@ onBeforeMount(async () => {
   <div class="container-fluid">
     <div class="row d-flex justify-content-center p-5">
       <div class="col-md-5 register-card apple-shadow p-4">
-        <h1 class="text-center">
+        <h1 class="text-center mb-5">
           <i class="fas fa-user-circle text-success me-1"></i> Profile Details
         </h1>
-        <p class="text-center mb-3 pb-1">
-          Welcome back! Keep your profile up-to-date.
-        </p>
-        <div class="text-center mb-4">
-          <span 
-            class="badge fs-6"
-            :class="isAdmin ? 'bg-dark' : 'border border-dark text-dark'">
-            {{ isAdmin ? 'Admin Account' : 'Regular Account' }}
-          </span>
-        </div>
 
         <div class="mb-2">
           <label class="form-label">First Name:</label>
           <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-user"></i></span>
             <input type="text" class="form-control" :value="firstName" disabled />
           </div>
         </div>
@@ -122,7 +116,6 @@ onBeforeMount(async () => {
         <div class="mb-2">
           <label class="form-label">Last Name:</label>
           <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-user-tag"></i></span>
             <input type="text" class="form-control" :value="lastName" disabled />
           </div>
         </div>
@@ -130,7 +123,6 @@ onBeforeMount(async () => {
         <div class="mb-2">
           <label class="form-label">Mobile Number:</label>
           <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-phone"></i></span>
             <input type="text" class="form-control" :value="mobileNo" disabled />
           </div>
         </div>
@@ -138,7 +130,6 @@ onBeforeMount(async () => {
         <div class="mb-2">
           <label class="form-label">Email Address:</label>
           <div class="input-group">
-            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
             <input type="email" class="form-control" :value="email" disabled />
           </div>
         </div>
