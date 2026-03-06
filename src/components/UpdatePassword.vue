@@ -41,8 +41,8 @@ const handleReset = async () => {
 
   loading.value = true
   try {
-    const response = await api.patch(
-      'https://rmantonio-coursebookingapi.onrender.com/users/update-password',
+    const response = await api.post(
+      '/users/reset-password',
       { newPassword: newPassword.value },
       { headers: { Authorization: `Bearer ${token}` } }
     )
@@ -136,13 +136,12 @@ onBeforeMount(async () => {
 
         <div class="mt-5">
           <h3 class="card-title mb-3">
-            <i class="fas fa-key me-2"></i> Reset Password
+            Reset Password
           </h3>
           <form @submit.prevent="handleReset">
             <div class="mb-3">
               <label for="newPassword" class="form-label">New Password</label>
               <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-lock"></i></span>
                 <input
                   :type="showPassword ? 'text' : 'password'"
                   id="newPassword"
@@ -151,20 +150,12 @@ onBeforeMount(async () => {
                   class="form-control"
                   required
                 />
-
-                <span
-                  class="input-group-text password-eye"
-                  @click="showPassword = !showPassword"
-                >
-                  <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
-                </span>
               </div>
             </div>
 
             <div class="mb-3">
               <label for="confirmPassword" class="form-label">Confirm Password</label>
               <div class="input-group">
-                <span class="input-group-text"><i class="fas fa-lock"></i></span>
                 <input
                   :type="showConfirmPassword ? 'text' : 'password'"
                   id="confirmPassword"
@@ -173,19 +164,12 @@ onBeforeMount(async () => {
                   class="form-control"
                   required
                 />
-
-                <span
-                  class="input-group-text password-eye"
-                  @click="showConfirmPassword = !showConfirmPassword"
-                >
-                  <i :class="showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
-                </span>
               </div>
             </div>
 
             <button
               type="submit"
-              class="btn btn-success w-100"
+              class="btn btn-primary w-100"
               :disabled="isSubmitDisabled || loading"
             >
               <span v-if="!loading">
