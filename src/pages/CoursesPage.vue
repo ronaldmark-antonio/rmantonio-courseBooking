@@ -5,6 +5,7 @@ import CourseComponent from '../components/CourseComponent.vue';
 
 export default {
   components: { CourseComponent },
+
   setup() {
     const courses = ref([]);
     const loading = ref(true);
@@ -12,13 +13,15 @@ export default {
 
     onMounted(async () => {
       try {
-          const { data } = await api.get('https://coursebookingapi.onrender.com/courses');
-          courses.value = data;
+        const { data } = await api.get('https://coursebookingapi.onrender.com/courses');
+
+        courses.value = data.reverse();
+
       } catch (err) {
-          console.error(err);
-          error.value = "Failed to load courses.";
+        console.error(err);
+        error.value = "Failed to load courses.";
       } finally {
-          loading.value = false;
+        loading.value = false;
       }
     });
 
