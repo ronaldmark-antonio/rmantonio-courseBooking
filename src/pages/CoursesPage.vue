@@ -2,11 +2,14 @@
 import api from '../api.js';
 import { ref, onMounted } from 'vue';
 import CourseComponent from '../components/CourseComponent.vue';
+import { useGlobalStore } from "../stores/global";
 
 export default {
   components: { CourseComponent },
 
   setup() {
+    const { user } = useGlobalStore();
+
     const courses = ref([]);
     const loading = ref(true);
     const error = ref(null);
@@ -14,9 +17,7 @@ export default {
     onMounted(async () => {
       try {
         const { data } = await api.get('https://coursebookingapi.onrender.com/courses');
-
         courses.value = data.reverse();
-
       } catch (err) {
         console.error(err);
         error.value = "Failed to load courses.";
@@ -25,7 +26,7 @@ export default {
       }
     });
 
-    return { courses, loading, error };
+    return { courses, loading, error, user };
   }
 }
 </script>
@@ -34,7 +35,9 @@ export default {
   <div class="container-fluid">
     <div class="row mt-3">
       <div class="col my-3">
-        <h1 class="text-center text-dark py-1">Courses</h1>
+        <h1 class="text-center text-dark py-1">
+          {{ user.isAdmin ? "Dashboard" : "Courses" }}
+        </h1>
       </div>
     </div>
 
