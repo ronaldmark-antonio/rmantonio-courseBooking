@@ -14,14 +14,13 @@ const email = ref("")
   <nav class="navbar navbar-expand-lg sticky-top bg-light shadow-sm">
     <div class="container">
 
-      <router-link
-        :to="!user.email ? { name: 'Home' } : !user.isAdmin ? { name: 'Courses' } : ''"
-        class="navbar-brand d-flex align-items-center fw-bold"
-        :style="user.isAdmin ? 'pointer-events:none;' : ''"
-      >
-        <img src="/images/logo.png" alt="DevAcademy Logo" width="40" height="40" class="me-2" />
-        <span class="text-dark">DevAcademy</span>
-      </router-link>
+    <router-link
+      :to="user.email ? { name: 'Courses' } : { name: 'Home' }"
+      class="navbar-brand d-flex align-items-center fw-bold"
+    >
+      <img src="/images/logo.png" alt="DevAcademy Logo" width="40" height="40" class="me-2" />
+      <span class="text-dark">DevAcademy</span>
+    </router-link>
 
       <button
         class="navbar-toggler"
