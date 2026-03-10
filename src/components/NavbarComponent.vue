@@ -54,4 +54,10 @@ const email = ref("")
   transform: translateY(-1px);
   font-weight: 500;
 }
+
+.router-link-exact-active {
+  color: #0d6efd !important;
+  font-weight: 500;
+}
+
 </style>
