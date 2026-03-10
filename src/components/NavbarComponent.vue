@@ -45,3 +45,13 @@ const email = ref("")
     </div>
   </nav>
 </template>
+
+<style scoped>
+
+
+.navbar .nav-link:hover {
+  color: #0d6efd;
+  transform: translateY(-1px);
+  font-weight: 500;
+}
+</style>

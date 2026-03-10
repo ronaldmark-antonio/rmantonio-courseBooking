@@ -20,3 +20,7 @@ html, body {
   background-position: center;
   height: 550px;
 }
+
+.navbar .nav-link {
+  color: black !important;
+}
