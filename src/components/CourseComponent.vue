@@ -3,6 +3,7 @@ import { useRouter } from "vue-router";
 import { useGlobalStore } from "../stores/global";
 import { Notyf } from "notyf";
 import { ref } from "vue";
+import axios from "axios";
 
 const notyf = new Notyf();
 
@@ -30,22 +31,64 @@ export default {
       try {
         await new Promise(resolve => setTimeout(resolve, 1000));
         notyf.success("Successfully enrolled");
-      } catch (err) {
+      } catch {
         notyf.error("Enrollment failed");
       } finally {
         isEnrolling.value = false;
       }
     };
 
-    const handleDelete = () => {
-      notyf.success("Delete course clicked");
-      // Later: call DELETE API here
+    const handleDeactivate = async () => {
+      try {
+
+        const res = await axios.patch(
+          `https://coursebookingapi.onrender.com/courses/${props.courseData._id}/archive`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          }
+        );
+
+        if (res.status === 200) {
+          props.courseData.isActive = false;
+          notyf.success("Course archived successfully");
+        }
+
+      } catch {
+        notyf.error("Could not archive course");
+      }
+    };
+
+    const handleActivate = async () => {
+      try {
+
+        const res = await axios.patch(
+          `https://coursebookingapi.onrender.com/courses/${props.courseData._id}/activate`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          }
+        );
+
+        if (res.status === 200) {
+          props.courseData.isActive = true;
+          notyf.success("Course activated successfully");
+        }
+
+      } catch {
+        notyf.error("Could not activate course");
+      }
     };
 
     return {
       user,
       handleEnroll,
-      handleDelete,
+      handleDeactivate,
+      handleActivate,
       isEnrolling
     };
   }
@@ -75,10 +118,7 @@ export default {
           <span>Price:</span> &#8369;{{ courseData.price.toLocaleString() }}
         </p>
 
-        <!-- Buttons -->
         <div class="d-grid gap-2 mt-md-auto">
-
-          <!-- ADMIN BUTTONS -->
           <template v-if="user.isAdmin">
 
             <router-link
@@ -88,7 +128,6 @@ export default {
               Edit
             </router-link>
 
-            <!-- Activate / Reactivate -->
             <button
               v-if="!courseData.isActive"
               class="btn btn-success rounded-0"
@@ -96,8 +135,7 @@ export default {
             >
               Activate
             </button>
-
-            <!-- Deactivate -->
+            
             <button
               v-else
               class="btn btn-outline-primary rounded-0"
@@ -108,10 +146,8 @@ export default {
 
           </template>
 
-          <!-- USER BUTTONS -->
           <template v-else>
 
-            <!-- Enroll -->
             <button 
               class="btn btn-primary rounded-0"
               :disabled="isEnrolling"
@@ -121,7 +157,6 @@ export default {
               <span v-else>Enroll</span>
             </button>
 
-            <!-- View Course -->
             <router-link 
               class="btn btn-outline-primary rounded-0" 
               :to="{ path: `/courses/${courseData._id}`}"
