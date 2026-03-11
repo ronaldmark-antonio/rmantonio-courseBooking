@@ -130,12 +130,12 @@ export default {
 
             <button
               v-if="!courseData.isActive"
-              class="btn btn-success rounded-0"
+              class="btn btn-outline-primary rounded-0"
               @click="handleActivate"
             >
               Activate
             </button>
-            
+
             <button
               v-else
               class="btn btn-outline-primary rounded-0"
