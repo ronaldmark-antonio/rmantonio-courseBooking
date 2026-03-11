@@ -19,7 +19,7 @@ const email = ref("")
       class="navbar-brand d-flex align-items-center fw-bold"
     >
       <img src="/images/logo.png" alt="DevAcademy Logo" width="40" height="40" class="me-2" />
-      <span class="text-dark">DevAcademy</span>
+      <span class="text-dark">Dev/Academy</span>
     </router-link>
 
       <button
