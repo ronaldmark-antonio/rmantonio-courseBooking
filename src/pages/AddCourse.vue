@@ -77,12 +77,12 @@ try {
     }
 
     if (response.status === 409 || data.message === "Course already exists") {
-        notyf.error("Course Already Exists");
+        notyf.error("Course already exists");
     } else if (response.status === 201 || data.course === "Course added successfully" ) {
-        notyf.success("Course Added");
+        notyf.success("Course successfully added");
         router.push("/courses");
     } else {
-        notyf.error("Unsuccessful Course Creation");
+        notyf.error("Unsuccessful course creation");
     }
 } catch (error) {
     console.error("Fetch error:", error);
