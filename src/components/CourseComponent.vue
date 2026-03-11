@@ -88,11 +88,22 @@ export default {
               Edit
             </router-link>
 
+            <!-- Activate / Reactivate -->
             <button
-              class="btn btn-outline-primary rounded-0"
-              @click="handleDelete"
+              v-if="!courseData.isActive"
+              class="btn btn-success rounded-0"
+              @click="handleActivate"
             >
-              Delete
+              Activate
+            </button>
+
+            <!-- Deactivate -->
+            <button
+              v-else
+              class="btn btn-outline-primary rounded-0"
+              @click="handleDeactivate"
+            >
+              Deactivate
             </button>
 
           </template>
