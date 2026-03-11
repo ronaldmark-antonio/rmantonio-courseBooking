@@ -1,7 +1,6 @@
-<!-- ACTIVITY SOLUTION START -->
 <template>
     <div class="row my-2">
-        <h1 class="text-center text-dark mb-5">Why choose DevAcademy?</h1>
+        <h1 class="text-center text-dark mb-5">Why choose Dev/Academy?</h1>
         <div id="highlight1" class="col-md-4 pb-3">
             <div id="highlight1" class="card p-2 min-height-100 rounded-0">
                 <div class="card-body">
@@ -45,4 +44,3 @@
         </div>
     </div>
 </template>
-<!-- ACTIVITY SOLUTION END -->
