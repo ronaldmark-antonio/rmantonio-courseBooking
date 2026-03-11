@@ -14,7 +14,10 @@ export default {
   setup(props) {
     const { user } = useGlobalStore();
     const router = useRouter();
+
     const isEnrolling = ref(false);
+    const isActivating = ref(false);
+    const isDeactivating = ref(false);
 
     const handleEnroll = async () => {
 
@@ -39,6 +42,11 @@ export default {
     };
 
     const handleDeactivate = async () => {
+
+      if (isDeactivating.value) return;
+
+      isDeactivating.value = true;
+
       try {
 
         const res = await axios.patch(
@@ -58,10 +66,17 @@ export default {
 
       } catch {
         notyf.error("Could not archive course");
+      } finally {
+        isDeactivating.value = false;
       }
     };
 
     const handleActivate = async () => {
+
+      if (isActivating.value) return;
+
+      isActivating.value = true;
+
       try {
 
         const res = await axios.patch(
@@ -81,15 +96,19 @@ export default {
 
       } catch {
         notyf.error("Could not activate course");
+      } finally {
+        isActivating.value = false;
       }
     };
 
     return {
       user,
       handleEnroll,
-      handleDeactivate,
       handleActivate,
-      isEnrolling
+      handleDeactivate,
+      isEnrolling,
+      isActivating,
+      isDeactivating
     };
   }
 };
@@ -131,17 +150,21 @@ export default {
             <button
               v-if="!courseData.isActive"
               class="btn btn-outline-primary rounded-0"
+              :disabled="isActivating"
               @click="handleActivate"
             >
-              Activate
+              <span v-if="isActivating">Activating...</span>
+              <span v-else>Activate</span>
             </button>
 
             <button
               v-else
               class="btn btn-outline-primary rounded-0"
+              :disabled="isDeactivating"
               @click="handleDeactivate"
             >
-              Deactivate
+              <span v-if="isDeactivating">Deactivating...</span>
+              <span v-else>Deactivate</span>
             </button>
 
           </template>
