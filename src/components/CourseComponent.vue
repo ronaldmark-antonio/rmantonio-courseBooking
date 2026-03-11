@@ -184,7 +184,7 @@ export default {
               class="btn btn-outline-primary rounded-0" 
               :to="{ path: `/courses/${courseData._id}`}"
             >
-              View Course
+              View
             </router-link>
 
           </template>
