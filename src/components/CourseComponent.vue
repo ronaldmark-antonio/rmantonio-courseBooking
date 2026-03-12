@@ -115,7 +115,10 @@ export default {
 </script>
 
 <template>
-  <div class="col-12 col-md-6 col-lg-3 p-2 d-flex flex-row">
+  <div
+    v-if="courseData"
+    class="col-12 col-md-6 col-lg-3 p-2 d-flex flex-row"
+  >
     <div id="CourseCard" class="card cardHighlights shadow-sm rounded-0" style="min-height: 100%">
       
       <img 
@@ -130,14 +133,15 @@ export default {
         </h4>
 
         <p class="card-text text-muted mb-0">
-          {{ courseData.description.slice(0, 100) + (courseData.description.length > 100 ? '...' : '') }}
+          {{ courseData.description?.slice(0, 100) + (courseData.description?.length > 100 ? '...' : '') }}
         </p>
 
         <p class="mb-3">
-          <span>Price:</span> &#8369;{{ courseData.price.toLocaleString() }}
+          <span>Price:</span> &#8369;{{ courseData.price?.toLocaleString() }}
         </p>
 
         <div class="d-grid gap-2 mt-md-auto">
+
           <template v-if="user.isAdmin">
 
             <router-link
@@ -190,7 +194,6 @@ export default {
           </template>
 
         </div>
-
       </div>
     </div>
   </div>

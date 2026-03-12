@@ -1,6 +1,6 @@
 <script>
 import api from '../api.js';
-import { ref, onMounted } from 'vue';
+import { ref, watch } from 'vue';
 import CourseComponent from '../components/CourseComponent.vue';
 import { useGlobalStore } from "../stores/global";
 
@@ -8,35 +8,61 @@ export default {
   components: { CourseComponent },
 
   setup() {
+
     const { user } = useGlobalStore();
 
     const courses = ref([]);
     const loading = ref(true);
     const error = ref(null);
 
-    onMounted(async () => {
+    const loadCourses = async () => {
+
       try {
 
-        const { data } = await api.get(
-          "https://coursebookingapi.onrender.com/courses/all",
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`
-            }
-          }
-        );
+        let response;
 
-        courses.value = data.reverse();
+        if (user.isAdmin) {
+
+          response = await api.get(
+            "/courses/all",
+            {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`
+              }
+            }
+          );
+
+        } else {
+
+          response = await api.get("/courses");
+
+        }
+
+        courses.value = response.data.reverse();
 
       } catch (err) {
+
         console.error(err);
         error.value = "Failed to load courses.";
+
       } finally {
+
         loading.value = false;
+
       }
-    });
+
+    };
+
+    watch(
+      () => user.isAdmin,
+      () => {
+        loadCourses();
+      },
+      { immediate: true }
+    );
 
     return { courses, loading, error, user };
+
   }
 }
 </script>
@@ -46,7 +72,7 @@ export default {
     <div class="row mt-3">
       <div class="col my-3">
         <h1 class="text-center text-dark py-1">
-          {{ user.isAdmin ? "Course Dashboard" : "Courses" }}
+          {{ user.isAdmin ? "Courses Dashboard" : "Courses" }}
         </h1>
       </div>
     </div>
