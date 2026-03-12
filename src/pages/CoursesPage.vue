@@ -67,7 +67,7 @@ export default {
       if (!search.value) return courses.value;
 
       return courses.value.filter(course =>
-        course.name.toLowerCase().includes(search.value.toLowerCase())
+        course.name.toLowerCase().startsWith(search.value.toLowerCase())
       );
 
     });
