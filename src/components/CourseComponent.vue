@@ -149,7 +149,7 @@ export default {
 
             <button
               v-if="!courseData.isActive"
-              class="btn btn-success rounded-0"
+              class="btn btn-outline-success rounded-0"
               :disabled="isActivating"
               @click="handleActivate"
             >
@@ -159,7 +159,7 @@ export default {
 
             <button
               v-else
-              class="btn btn-danger rounded-0"
+              class="btn btn-outline-danger rounded-0"
               :disabled="isDeactivating"
               @click="handleDeactivate"
             >

@@ -16,8 +16,18 @@ export default {
 
     onMounted(async () => {
       try {
-        const { data } = await api.get('https://coursebookingapi.onrender.com/courses');
+
+        const { data } = await api.get(
+          "https://coursebookingapi.onrender.com/courses/all",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          }
+        );
+
         courses.value = data.reverse();
+
       } catch (err) {
         console.error(err);
         error.value = "Failed to load courses.";
@@ -36,7 +46,7 @@ export default {
     <div class="row mt-3">
       <div class="col my-3">
         <h1 class="text-center text-dark py-1">
-          {{ user.isAdmin ? "Dashboard" : "Courses" }}
+          {{ user.isAdmin ? "Course Dashboard" : "Courses" }}
         </h1>
       </div>
     </div>
