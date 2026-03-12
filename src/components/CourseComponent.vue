@@ -33,9 +33,9 @@ export default {
 
       try {
         await new Promise(resolve => setTimeout(resolve, 1000));
-        notyf.success("Successfully enrolled");
+        notyf.success("Course enrolled successfully");
       } catch {
-        notyf.error("Enrollment failed");
+        notyf.error("Course enrollment failed");
       } finally {
         isEnrolling.value = false;
       }
@@ -65,7 +65,7 @@ export default {
         }
 
       } catch {
-        notyf.error("Could not archive course");
+        notyf.error("Failed to archive course");
       } finally {
         isDeactivating.value = false;
       }
@@ -95,7 +95,7 @@ export default {
         }
 
       } catch {
-        notyf.error("Could not activate course");
+        notyf.error("Failed to Could not activate course");
       } finally {
         isActivating.value = false;
       }
@@ -149,7 +149,7 @@ export default {
 
             <button
               v-if="!courseData.isActive"
-              class="btn btn-outline-primary rounded-0"
+              class="btn btn-success rounded-0"
               :disabled="isActivating"
               @click="handleActivate"
             >
@@ -159,7 +159,7 @@ export default {
 
             <button
               v-else
-              class="btn btn-outline-primary rounded-0"
+              class="btn btn-danger rounded-0"
               :disabled="isDeactivating"
               @click="handleDeactivate"
             >
