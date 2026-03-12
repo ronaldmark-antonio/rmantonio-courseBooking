@@ -1,6 +1,6 @@
 <script>
 import api from '../api.js';
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import CourseComponent from '../components/CourseComponent.vue';
 import { useGlobalStore } from "../stores/global";
 
@@ -14,6 +14,7 @@ export default {
     const courses = ref([]);
     const loading = ref(true);
     const error = ref(null);
+    const search = ref("");
 
     const loadCourses = async () => {
 
@@ -61,7 +62,17 @@ export default {
       { immediate: true }
     );
 
-    return { courses, loading, error, user };
+    const filteredCourses = computed(() => {
+
+      if (!search.value) return courses.value;
+
+      return courses.value.filter(course =>
+        course.name.toLowerCase().includes(search.value.toLowerCase())
+      );
+
+    });
+
+    return { courses, loading, error, user, search, filteredCourses };
 
   }
 }
@@ -69,11 +80,23 @@ export default {
 
 <template>
   <div class="container-fluid">
+
     <div class="row mt-3">
       <div class="col my-3">
         <h1 class="text-center text-dark py-1">
           {{ user.isAdmin ? "Courses Dashboard" : "Courses" }}
         </h1>
+      </div>
+    </div>
+
+    <div v-if="!user.isAdmin" class="row justify-content-center mb-3">
+      <div class="col-md-4">
+        <input
+          type="text"
+          class="form-control rounded-0"
+          placeholder="Search course"
+          v-model="search"
+        >
       </div>
     </div>
 
@@ -87,11 +110,12 @@ export default {
 
     <div v-else class="row p-3 m-3">
       <CourseComponent
-        v-for="course in courses"
+        v-for="course in filteredCourses"
         :key="course._id"
         :courseData="course"
       />
     </div>
+
   </div>
 </template>
 
