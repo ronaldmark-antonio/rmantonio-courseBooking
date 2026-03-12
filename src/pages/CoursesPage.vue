@@ -95,6 +95,11 @@ export default {
 
     });
 
+    const clearFilters = () => {
+      search.value = "";
+      priceRange.value = "all";
+    };
+
     return { 
       courses,
       loading,
@@ -102,7 +107,8 @@ export default {
       user,
       search,
       priceRange,
-      filteredCourses
+      filteredCourses,
+      clearFilters
     };
 
   }
@@ -145,6 +151,16 @@ export default {
           <option value="1000-2000">₱1000 – ₱2000</option>
           <option value="2000+">₱2000+</option>
         </select>
+      </div>
+
+      <!-- Clear Button -->
+      <div class="col-md-2">
+        <button
+          class="btn btn-primary rounded-0 w-100"
+          @click="clearFilters"
+        >
+          Clear
+        </button>
       </div>
 
     </div>
