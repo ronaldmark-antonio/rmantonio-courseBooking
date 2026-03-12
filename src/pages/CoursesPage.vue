@@ -157,6 +157,10 @@ export default {
       <h4>{{ error }}</h4>
     </div>
 
+    <div v-else-if="filteredCourses.length === 0" class="text-center py-5">
+      <h4 class="text-muted">No courses found.</h4>
+    </div>
+
     <div v-else class="row p-3 m-3">
       <CourseComponent
         v-for="course in filteredCourses"
