@@ -89,12 +89,13 @@ export default {
       </div>
     </div>
 
-    <div v-if="!user.isAdmin" class="row justify-content-center mb-3">
+    <!-- Search for everyone -->
+    <div class="row justify-content-center mb-3">
       <div class="col-md-4">
         <input
           type="text"
           class="form-control rounded-0"
-          placeholder="Search course"
+          placeholder="Search courses..."
           v-model="search"
         >
       </div>
