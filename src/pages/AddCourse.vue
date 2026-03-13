@@ -1,6 +1,6 @@
 <script setup>
 import { onBeforeMount, reactive, ref, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import api from "../api";
 
 import { useGlobalStore } from "../stores/global";
@@ -11,28 +11,45 @@ const { user } = useGlobalStore();
 const router = useRouter();
 const course = reactive({ data: null });
 
-onBeforeMount(() => {
+const existingCourses = ref([]);
+
+function normalizeCourseName(name) {
+    return name
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, "")
+        .trim();
+}
+
+onBeforeMount(async () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
         router.push("/courses");
+        return;
+    }
+
+    // load existing courses for validation
+    try {
+        const response = await api.get("/courses");
+        existingCourses.value = response.data;
+    } catch (err) {
+        console.error("Failed to load courses", err);
     }
 });
-
 
 const name = ref("");
 const description = ref("");
 const price = ref("");
 const formattedPrice = ref("");
-const isEnabled = ref(false)
+const isEnabled = ref(false);
 
-watch([ name, description, price], (currentValue, oldValue) => {
-    if(currentValue.every(input => input)){
-        isEnabled.value = true
+watch([name, description, price], (currentValue) => {
+    if (currentValue.every(input => input)) {
+        isEnabled.value = true;
     } else {
-        isEnabled.value = false
+        isEnabled.value = false;
     }
-})
+});
 
 watch(price, (newVal) => {
     if (newVal === "" || newVal === null) {
@@ -50,47 +67,61 @@ watch(price, (newVal) => {
 
 
 async function addCourse(e) {
-e.preventDefault();
+    e.preventDefault();
 
-const token = localStorage.getItem("token");
-if (!token) return notyf.error("You must be logged in as admin");
+    const token = localStorage.getItem("token");
+    if (!token) return notyf.error("You must be logged in as admin");
 
-try {
-    const response = await fetch("https://coursebookingapi.onrender.com/courses", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-    }, body: JSON.stringify({
-            name: name.value,
-            description: description.value,
-            price: Number(price.value.replace(/,/g, ""))
-        })
-    });
+    // check duplicate before sending request
+    const normalizedInput = normalizeCourseName(name.value);
 
-    let data;
-    const contentType = response.headers.get("content-type");
-    if (contentType && contentType.includes("application/json")) {
-        data = await response.json();
-    } else {
-        data = await response.text();
+    const duplicate = existingCourses.value.find(course =>
+        normalizeCourseName(course.name) === normalizedInput
+    );
+
+    if (duplicate) {
+        return notyf.error("Course already exists");
     }
 
-    if (response.status === 409 || data.message === "Course already exists") {
-        notyf.error("Course already exists");
-    } else if (response.status === 201 || data.course === "Course added successfully" ) {
-        notyf.success("Course successfully added");
-        router.push("/courses");
-    } else {
-        notyf.error("Unsuccessful course creation");
+    try {
+        const response = await fetch("https://coursebookingapi.onrender.com/courses", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                name: name.value,
+                description: description.value,
+                price: Number(price.value.replace(/,/g, ""))
+            })
+        });
+
+        let data;
+        const contentType = response.headers.get("content-type");
+
+        if (contentType && contentType.includes("application/json")) {
+            data = await response.json();
+        } else {
+            data = await response.text();
+        }
+
+        if (response.status === 409 || data.message === "Course already exists") {
+            notyf.error("Course already exists");
+        } 
+        else if (response.status === 201 || data.course === "Course added successfully") {
+            notyf.success("Course successfully added");
+            router.push("/courses");
+        } 
+        else {
+            notyf.error("Unsuccessful course creation");
+        }
+
+    } catch (error) {
+        console.error("Fetch error:", error);
+        notyf.error("Server error: Could not add course");
     }
-} catch (error) {
-    console.error("Fetch error:", error);
-    notyf.error("Server error: Could not add course");
 }
-
-}
-
 </script>
 
 <template>
