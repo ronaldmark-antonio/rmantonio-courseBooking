@@ -118,6 +118,7 @@ export default {
 <template>
   <div class="container-fluid">
 
+    <!-- Title -->
     <div class="row mt-3">
       <div class="col my-3">
         <h1 class="text-center text-dark py-1">
@@ -126,9 +127,9 @@ export default {
       </div>
     </div>
 
+    <!-- Filters -->
     <div class="row mb-3 g-2 px-3 m-3">
 
-      <!-- Search -->
       <div class="col-md-6">
         <input
           type="text"
@@ -138,7 +139,6 @@ export default {
         >
       </div>
 
-      <!-- Price Range -->
       <div class="col-md-4">
         <select
           class="form-select rounded-0"
@@ -152,7 +152,6 @@ export default {
         </select>
       </div>
 
-      <!-- Clear Button -->
       <div class="col-md-2">
         <button
           class="btn btn-primary rounded-0 w-100"
@@ -164,24 +163,55 @@ export default {
 
     </div>
 
+    <!-- Loading -->
     <div v-if="loading" class="text-center py-5">
       <h4>Loading courses...</h4>
     </div>
 
+    <!-- Error -->
     <div v-else-if="error" class="text-center text-danger py-5">
       <h4>{{ error }}</h4>
     </div>
 
+    <!-- No Courses -->
     <div v-else-if="filteredCourses.length === 0" class="text-center py-5">
       <h4 class="text-muted">No courses found.</h4>
     </div>
 
+    <!-- ADMIN TABLE -->
+    <div v-else-if="user.isAdmin" class="p-3 m-3">
+
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>Course</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <CourseComponent
+            v-for="course in filteredCourses"
+            :key="course._id"
+            :courseData="course"
+          />
+        </tbody>
+      </table>
+
+    </div>
+
+    <!-- USER CARD GRID -->
     <div v-else class="row p-3 m-3">
+
       <CourseComponent
         v-for="course in filteredCourses"
         :key="course._id"
         :courseData="course"
       />
+
     </div>
 
   </div>

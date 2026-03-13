@@ -115,8 +115,63 @@ export default {
 </script>
 
 <template>
+
+  <!-- ADMIN TABLE ROW -->
+  <tr v-if="user.isAdmin && courseData">
+    <td>{{ courseData.name }}</td>
+
+    <td>
+      {{ courseData.description?.slice(0, 80) }}
+      {{ courseData.description?.length > 80 ? "..." : "" }}
+    </td>
+
+    <td>₱{{ courseData.price?.toLocaleString() }}</td>
+
+    <td>
+      <span
+        class="badge"
+        :class="courseData.isActive ? 'bg-success' : 'bg-secondary'"
+      >
+        {{ courseData.isActive ? "Active" : "Archived" }}
+      </span>
+    </td>
+
+    <td class="d-flex gap-2">
+
+      <router-link
+        class="btn btn-sm btn-primary"
+        :to="{ path: `/admin/edit-course/${courseData._id}` }"
+      >
+        Edit
+      </router-link>
+
+      <button
+        v-if="!courseData.isActive"
+        class="btn btn-sm btn-outline-success"
+        :disabled="isActivating"
+        @click="handleActivate"
+      >
+        <span v-if="isActivating">Activating...</span>
+        <span v-else>Activate</span>
+      </button>
+
+      <button
+        v-else
+        class="btn btn-sm btn-outline-danger"
+        :disabled="isDeactivating"
+        @click="handleDeactivate"
+      >
+        <span v-if="isDeactivating">Deactivating...</span>
+        <span v-else>Deactivate</span>
+      </button>
+
+    </td>
+  </tr>
+
+
+  <!-- USER CARD VIEW -->
   <div
-    v-if="courseData"
+    v-else-if="courseData"
     class="col-12 col-md-6 col-lg-3 p-2 d-flex flex-row"
   >
     <div id="CourseCard" class="card cardHighlights shadow-sm rounded-0" style="min-height: 100%">
@@ -142,59 +197,25 @@ export default {
 
         <div class="d-grid gap-2 mt-md-auto">
 
-          <template v-if="user.isAdmin">
+          <button 
+            class="btn btn-primary rounded-0"
+            :disabled="isEnrolling"
+            @click="handleEnroll"
+          >
+            <span v-if="isEnrolling">Enrolling...</span>
+            <span v-else>Enroll</span>
+          </button>
 
-            <router-link
-              class="btn btn-primary rounded-0"
-              :to="{ path: `/admin/edit-course/${courseData._id}` }"
-            >
-              Edit
-            </router-link>
-
-            <button
-              v-if="!courseData.isActive"
-              class="btn btn-outline-success rounded-0"
-              :disabled="isActivating"
-              @click="handleActivate"
-            >
-              <span v-if="isActivating">Activating...</span>
-              <span v-else>Activate</span>
-            </button>
-
-            <button
-              v-else
-              class="btn btn-outline-danger rounded-0"
-              :disabled="isDeactivating"
-              @click="handleDeactivate"
-            >
-              <span v-if="isDeactivating">Deactivating...</span>
-              <span v-else>Deactivate</span>
-            </button>
-
-          </template>
-
-          <template v-else>
-
-            <button 
-              class="btn btn-primary rounded-0"
-              :disabled="isEnrolling"
-              @click="handleEnroll"
-            >
-              <span v-if="isEnrolling">Enrolling...</span>
-              <span v-else>Enroll</span>
-            </button>
-
-            <router-link 
-              class="btn btn-outline-primary rounded-0" 
-              :to="{ path: `/courses/${courseData._id}`}"
-            >
-              View
-            </router-link>
-
-          </template>
+          <router-link 
+            class="btn btn-outline-primary rounded-0" 
+            :to="{ path: `/courses/${courseData._id}`}"
+          >
+            View
+          </router-link>
 
         </div>
       </div>
     </div>
   </div>
+
 </template>
