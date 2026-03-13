@@ -126,21 +126,20 @@ export default {
       </div>
     </div>
 
-    <!-- Search for everyone -->
-    <div class="row justify-content-center mb-3 g-2">
+    <div class="row mb-3 g-2 px-3 m-3">
 
       <!-- Search -->
-      <div class="col-md-4">
+      <div class="col-md-6">
         <input
           type="text"
           class="form-control rounded-0"
-          placeholder="Search courses..."
+          placeholder="Search courses"
           v-model="search"
         >
       </div>
 
       <!-- Price Range -->
-      <div class="col-md-3">
+      <div class="col-md-4">
         <select
           class="form-select rounded-0"
           v-model="priceRange"
