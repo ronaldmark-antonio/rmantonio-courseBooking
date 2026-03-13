@@ -125,29 +125,69 @@ async function addCourse(e) {
 </script>
 
 <template>
-    <div class="container-fluid">
-        <div class="row d-flex justify-content-center">
-            <h1 class="my-5 pt-3 text-dark text-center">Add Course</h1> 
-            <div class="col-md-6 rounded-3 mx-auto p-2">
-                <form @submit="addCourse">
-                    <div class="form-group">
-                        <input type="text" class="form-control rounded-0" id="nameInput" aria-describedby="nameHelp" placeholder="Name" v-model="name">
-                    </div>
-                    <div class="form-group mt-3">
-                        <textarea class="form-control rounded-0" id="descriptionInput" rows="5" placeholder="Description" v-model="description"></textarea>
-                    </div>
-                    <div class="form-group mt-3">
-                        <div class="input-group">
-                            <span class="input-group-text rounded-0">₱</span>
-                            <input type="text" class="form-control rounded-0" placeholder="Price" v-model="formattedPrice" @input="price = $event.target.value">
-                        </div>
-                    </div>
-                    <div class="text-end">
-                        <button type="button" class="btn btn-outline-primary rounded-0 my-3 mx-2" @click="$router.push('/courses')">Cancel</button>
-                        <button type="submit" class="btn btn-primary my-3 rounded-0" :disabled="!isEnabled">Submit</button>
-                    </div>
-                </form>
+  <div class="container-fluid px-3 px-md-0">
+    <div class="row d-flex justify-content-center">
+
+      <h1 class="my-5 pt-3 text-dark text-center">Add Course</h1> 
+
+      <!-- Mobile padding only -->
+      <div class="col-md-6 rounded-3 mx-auto p-3 p-md-2">
+
+        <form @submit="addCourse">
+
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control rounded-0"
+              placeholder="Name"
+              v-model="name"
+            >
+          </div>
+
+          <div class="form-group mt-3">
+            <textarea
+              class="form-control rounded-0"
+              rows="5"
+              placeholder="Description"
+              v-model="description"
+            ></textarea>
+          </div>
+
+          <div class="form-group mt-3">
+            <div class="input-group">
+              <span class="input-group-text rounded-0">₱</span>
+              <input
+                type="text"
+                class="form-control rounded-0"
+                placeholder="Price"
+                v-model="formattedPrice"
+                @input="price = $event.target.value"
+              >
             </div>
-        </div>
+          </div>
+
+          <div class="text-end">
+            <button
+              type="button"
+              class="btn btn-outline-primary rounded-0 my-3 mx-2"
+              @click="$router.push('/courses')"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              class="btn btn-primary my-3 rounded-0"
+              :disabled="!isEnabled"
+            >
+              Submit
+            </button>
+          </div>
+
+        </form>
+
+      </div>
+
     </div>
+  </div>
 </template>
