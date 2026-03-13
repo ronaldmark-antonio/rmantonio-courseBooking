@@ -130,9 +130,9 @@ export default {
     <td>
       <span
         class="badge"
-        :class="courseData.isActive ? 'bg-success' : 'bg-secondary'"
+        :class="courseData.isActive ? 'bg-success' : 'bg-danger'"
       >
-        {{ courseData.isActive ? "Active" : "Archived" }}
+        {{ courseData.isActive ? "Active" : "Inactive" }}
       </span>
     </td>
 

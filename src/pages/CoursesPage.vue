@@ -127,8 +127,49 @@ export default {
       </div>
     </div>
 
-    <!-- Filters -->
-    <div class="row mb-3 g-2 px-3 m-3">
+    <!-- ADMIN FILTERS (aligned with table width) -->
+    <div v-if="user.isAdmin" class="d-flex justify-content-center">
+
+      <div style="width:58%;" class="row g-2">
+
+        <div class="col-md-6">
+          <input
+            type="text"
+            class="form-control rounded-0"
+            placeholder="Search courses"
+            v-model="search"
+          >
+        </div>
+
+        <div class="col-md-4">
+          <select
+            class="form-select rounded-0"
+            v-model="priceRange"
+          >
+            <option value="all">All Prices</option>
+            <option value="0-500">₱0 – ₱500</option>
+            <option value="500-1000">₱500 – ₱1000</option>
+            <option value="1000-2000">₱1000 – ₱2000</option>
+            <option value="2000+">₱2000+</option>
+          </select>
+        </div>
+
+        <div class="col-md-2">
+          <button
+            class="btn btn-primary rounded-0 w-100"
+            @click="clearFilters"
+          >
+            Clear
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- USER / GUEST FILTERS (original full width) -->
+    <div v-else class="row mb-3 g-2 px-3 m-3">
 
       <div class="col-md-6">
         <input
@@ -163,47 +204,44 @@ export default {
 
     </div>
 
-    <!-- Loading -->
     <div v-if="loading" class="text-center py-5">
       <h4>Loading courses...</h4>
     </div>
 
-    <!-- Error -->
     <div v-else-if="error" class="text-center text-danger py-5">
       <h4>{{ error }}</h4>
     </div>
 
-    <!-- No Courses -->
     <div v-else-if="filteredCourses.length === 0" class="text-center py-5">
       <h4 class="text-muted">No courses found.</h4>
     </div>
 
-    <!-- ADMIN TABLE -->
-    <div v-else-if="user.isAdmin" class="p-3 m-3">
+    <div v-else-if="user.isAdmin" class="p-3 m-3 d-flex justify-content-center">
 
-      <table class="table table-striped table-hover">
-        <thead class="table-dark">
-          <tr>
-            <th>Course</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+      <div style="width: 60%;">
+        <table class="table table-hover align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>Course</th>
+              <th>Description</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
 
-        <tbody>
-          <CourseComponent
-            v-for="course in filteredCourses"
-            :key="course._id"
-            :courseData="course"
-          />
-        </tbody>
-      </table>
+          <tbody>
+            <CourseComponent
+              v-for="course in filteredCourses"
+              :key="course._id"
+              :courseData="course"
+            />
+          </tbody>
+        </table>
+      </div>
 
     </div>
 
-    <!-- USER CARD GRID -->
     <div v-else class="row p-3 m-3">
 
       <CourseComponent
