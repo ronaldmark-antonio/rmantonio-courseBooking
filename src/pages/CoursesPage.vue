@@ -118,7 +118,6 @@ export default {
 <template>
   <div class="container-fluid">
 
-    <!-- Title -->
     <div class="row mt-3">
       <div class="col my-3">
         <h1 class="text-center text-dark py-1">
@@ -127,12 +126,11 @@ export default {
       </div>
     </div>
 
-    <!-- ADMIN FILTERS (aligned with table width) -->
     <div v-if="user.isAdmin" class="d-flex justify-content-center">
 
-      <div style="width:58%;" class="row g-2">
+      <div style="width:48%;" class="row g-2">
 
-        <div class="col-md-6">
+        <div class="col-md-8">
           <input
             type="text"
             class="form-control rounded-0"
@@ -142,6 +140,15 @@ export default {
         </div>
 
         <div class="col-md-4">
+          <button
+            class="btn btn-primary rounded-0 w-100"
+            @click="clearFilters"
+          >
+            Clear
+          </button>
+        </div>
+
+        <div class="col-12">
           <select
             class="form-select rounded-0"
             v-model="priceRange"
@@ -154,35 +161,23 @@ export default {
           </select>
         </div>
 
-        <div class="col-md-2">
-          <button
-            class="btn btn-primary rounded-0 w-100"
-            @click="clearFilters"
-          >
-            Clear
-          </button>
-        </div>
-
       </div>
 
     </div>
 
+    <div v-else class="row mb-3 g-2 px-3 m-3 justify-content-center align-items-stretch">
 
-    <!-- USER / GUEST FILTERS (original full width) -->
-    <div v-else class="row mb-3 g-2 px-3 m-3">
+      <div class="col-md-6 d-flex flex-column gap-1">
 
-      <div class="col-md-6">
         <input
           type="text"
-          class="form-control rounded-0"
-          placeholder="Search courses"
+          class="form-control form-control-sm rounded-0"
+          placeholder="Search course"
           v-model="search"
         >
-      </div>
 
-      <div class="col-md-4">
         <select
-          class="form-select rounded-0"
+          class="form-select form-select-sm rounded-0"
           v-model="priceRange"
         >
           <option value="all">All Prices</option>
@@ -191,11 +186,12 @@ export default {
           <option value="1000-2000">₱1000 – ₱2000</option>
           <option value="2000+">₱2000+</option>
         </select>
+
       </div>
 
-      <div class="col-md-2">
+      <div class="col-md-2 d-flex">
         <button
-          class="btn btn-primary rounded-0 w-100"
+          class="btn btn-primary btn-sm rounded-0 w-100 h-100"
           @click="clearFilters"
         >
           Clear
@@ -218,7 +214,7 @@ export default {
 
     <div v-else-if="user.isAdmin" class="p-3 m-3 d-flex justify-content-center">
 
-      <div style="width: 60%;">
+      <div style="width: 50%;">
         <table class="table table-hover align-middle">
           <thead class="table-dark">
             <tr>
