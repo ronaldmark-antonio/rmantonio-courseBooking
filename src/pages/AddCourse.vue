@@ -122,6 +122,28 @@ async function addCourse(e) {
         notyf.error("Server error: Could not add course");
     }
 }
+
+function handlePriceInput(e) {
+  let value = e.target.value;
+
+  value = value.replace(/[^0-9.]/g, "");
+
+  const parts = value.split(".");
+  if (parts.length > 2) {
+    value = parts[0] + "." + parts[1];
+  }
+
+  price.value = value;
+
+  if (value) {
+    formattedPrice.value = Number(value).toLocaleString("en-US", {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
+    });
+  } else {
+    formattedPrice.value = "";
+  }
+}
 </script>
 
 <template>
@@ -156,13 +178,16 @@ async function addCourse(e) {
           <div class="form-group mt-3">
             <div class="input-group">
               <span class="input-group-text rounded-0">₱</span>
-              <input
-                type="text"
-                class="form-control rounded-0"
-                placeholder="Price"
-                v-model="formattedPrice"
-                @input="price = $event.target.value"
-              >
+                <input
+                  type="text"
+                  class="form-control rounded-0"
+                  placeholder="Price"
+                  :value="formattedPrice"
+                  @input="handlePriceInput"
+                  @keypress="(e) => {
+                    if (!/[0-9.]/.test(e.key)) e.preventDefault();
+                  }"
+                />
             </div>
           </div>
 
