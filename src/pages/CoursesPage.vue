@@ -189,28 +189,97 @@ export default {
     </div>
 
     <!-- ADMIN TABLE -->
-    <div v-else-if="user.isAdmin" class="p-3 m-3 d-flex justify-content-center">
-      <div style="width: 50%;">
-        <table class="table table-hover align-middle">
-          <thead class="table-dark">
-            <tr>
-              <th>Course</th>
-              <th>Description</th>
-              <th>Price</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
+    <div v-else-if="user.isAdmin" class="p-2 m-2">
 
-          <tbody>
-            <CourseComponent
-              v-for="course in filteredCourses"
-              :key="course._id"
-              :courseData="course"
-            />
-          </tbody>
-        </table>
+      <div class="d-block d-md-none">
+
+        <div
+          v-for="course in filteredCourses"
+          :key="course._id"
+          class="card mb-3 shadow-sm"
+        >
+          <div class="card-body">
+
+            <h5 class="fw-bold">{{ course.name }}</h5>
+
+            <p class="text-muted mb-1">
+              {{ course.description?.slice(0, 80) }}
+              {{ course.description?.length > 80 ? "..." : "" }}
+            </p>
+
+            <p class="mb-1">
+              Price: ₱{{ course.price?.toLocaleString() }}
+            </p>
+
+            <p>
+                Status:
+              <span
+                class="badge"
+                :class="course.isActive ? 'bg-success' : 'bg-danger'"
+              >
+                {{ course.isActive ? "Active" : "Inactive" }}
+              </span>
+            </p>
+
+            <div class="d-flex gap-2 flex-wrap">
+
+              <router-link
+                class="btn btn-sm btn-primary"
+                :to="{ path: `/admin/edit-course/${course._id}` }"
+              >
+                Edit
+              </router-link>
+
+              <button
+                v-if="!course.isActive"
+                class="btn btn-sm btn-outline-success"
+                @click="$router.push({ path: `/admin/edit-course/${course._id}` })"
+              >
+                Activate
+              </button>
+
+              <button
+                v-else
+                class="btn btn-sm btn-outline-danger"
+                @click="$router.push({ path: `/admin/edit-course/${course._id}` })"
+              >
+                Deactivate
+              </button>
+
+            </div>
+
+          </div>
+        </div>
+
       </div>
+
+      <!-- 💻 DESKTOP (table) -->
+      <div class="d-none d-md-flex justify-content-center">
+        <div style="width: 50%;">
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+              <thead class="table-dark">
+                <tr>
+                  <th>Course</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <CourseComponent
+                  v-for="course in filteredCourses"
+                  :key="course._id"
+                  :courseData="course"
+                />
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- USER GRID -->
