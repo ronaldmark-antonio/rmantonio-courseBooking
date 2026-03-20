@@ -116,40 +116,40 @@ onBeforeMount(async () => {
       </h1>
 
       <div class="mb-3">
+        First Name:
         <input
           type="text"
           class="form-control rounded-0"
-          placeholder="First Name"
           :value="firstName"
           disabled
         />
       </div>
 
       <div class="mb-3">
+        Last Name:
         <input
           type="text"
           class="form-control rounded-0"
-          placeholder="Last Name"
           :value="lastName"
           disabled
         />
       </div>
 
       <div class="mb-3">
+        Mobile Number:
         <input
           type="text"
           class="form-control rounded-0"
-          placeholder="Mobile Number"
           :value="mobileNo"
           disabled
         />
       </div>
 
       <div class="mb-4">
+        Email Address:
         <input
           type="email"
           class="form-control rounded-0"
-          placeholder="Email Address"
           :value="email"
           disabled
         />
@@ -199,7 +199,7 @@ onBeforeMount(async () => {
             class="btn btn-primary btn-block rounded-0"
             :disabled="isSubmitDisabled || loading"
           >
-            <span v-if="loading">Submitting...</span>
+            <span v-if="loading">Resetting Password...</span>
             <span v-else>Reset Password</span>
           </button>
         </div>
