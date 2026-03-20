@@ -3,6 +3,7 @@ import api from '../api.js';
 import { ref, watch, computed } from 'vue';
 import CourseComponent from '../components/CourseComponent.vue';
 import { useGlobalStore } from "../stores/global";
+import { Notyf } from "notyf";
 
 export default {
   components: { CourseComponent },
@@ -16,6 +17,8 @@ export default {
     const error = ref(null);
     const search = ref("");
     const priceRange = ref("all");
+
+    const notyf = new Notyf();
 
     const loadCourses = async () => {
       try {
@@ -77,6 +80,52 @@ export default {
       priceRange.value = "all";
     };
 
+    const activateCourse = async (course) => {
+      try {
+        const res = await api.patch(
+          `/courses/${course._id}/activate`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          }
+        );
+
+        if (res.status === 200) {
+          course.isActive = true;
+          notyf.success("Course activated successfully");
+        }
+
+      } catch (err) {
+        console.error(err);
+        notyf.error("Failed to activate course");
+      }
+    };
+
+    const deactivateCourse = async (course) => {
+      try {
+        const res = await api.patch(
+          `/courses/${course._id}/archive`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`
+            }
+          }
+        );
+
+        if (res.status === 200) {
+          course.isActive = false;
+          notyf.success("Course archived successfully");
+        }
+
+      } catch (err) {
+        console.error(err);
+        notyf.error("Failed to archive course");
+      }
+    };
+
     return { 
       courses,
       loading,
@@ -85,8 +134,10 @@ export default {
       search,
       priceRange,
       filteredCourses,
-      clearFilters
-    };
+      clearFilters,
+      activateCourse,
+      deactivateCourse
+    };  
   }
 }
 </script>
@@ -230,18 +281,20 @@ export default {
                 Edit
               </router-link>
 
+              <!-- Activate -->
               <button
                 v-if="!course.isActive"
                 class="btn btn-sm btn-outline-success"
-                @click="$router.push({ path: `/admin/edit-course/${course._id}` })"
+                @click="activateCourse(course)"
               >
                 Activate
               </button>
 
+              <!-- Deactivate -->
               <button
                 v-else
                 class="btn btn-sm btn-outline-danger"
-                @click="$router.push({ path: `/admin/edit-course/${course._id}` })"
+                @click="deactivateCourse(course)"
               >
                 Deactivate
               </button>
