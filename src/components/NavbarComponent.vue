@@ -34,16 +34,27 @@ const email = ref("")
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav ms-auto text-center text-lg-start">
-          <router-link :to="{ name: 'Courses' }" class="nav-link" v-if="user.isAdmin">Dashboard</router-link>
-          <router-link :to="{ name: 'Courses' }" class="nav-link" v-else>Courses</router-link>
-          <router-link :to="{ name: 'Register' }" class="nav-link" v-if="!user.email">Register</router-link>
-          <router-link :to="{ name: 'Add Course' }" class="nav-link" v-if="user.isAdmin">Add Course</router-link>
-          <router-link :to="{ name: 'Profile' }" class="nav-link" v-if="user.email">Profile</router-link>
-          <router-link :to="{ name: 'Login' }" class="nav-link" v-if="!user.email">Login</router-link>
-          <router-link :to="{ name: 'Logout' }" class="nav-link" v-else>Logout</router-link>
-        </div>
+      <div class="navbar-nav ms-auto text-center text-lg-start">
+
+        <!-- 👤 USER NAME / EMAIL -->
+        <span v-if="user.email" class="nav-link fw-semibold text-primary">
+          👤 {{ user.email }} |
+        </span>
+
+        <!-- Courses / Dashboard -->
+        <router-link :to="{ name: 'Courses' }" class="nav-link" v-if="user.isAdmin">
+          Dashboard
+        </router-link>
+        <router-link :to="{ name: 'Courses' }" class="nav-link" v-else>
+          Courses
+        </router-link>
+
+        <router-link :to="{ name: 'Register' }" class="nav-link" v-if="!user.email">Register</router-link>
+        <router-link :to="{ name: 'Add Course' }" class="nav-link" v-if="user.isAdmin">Add Course</router-link>
+        <router-link :to="{ name: 'Profile' }" class="nav-link" v-if="user.email">Profile</router-link>
+        <router-link :to="{ name: 'Login' }" class="nav-link" v-if="!user.email">Login</router-link>
+        <router-link :to="{ name: 'Logout' }" class="nav-link" v-else>Logout</router-link>
+
       </div>
 
     </div>
