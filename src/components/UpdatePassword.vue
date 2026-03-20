@@ -104,7 +104,16 @@ onBeforeMount(async () => {
 
     <div class="col-md-5 border border rounded-0 mx-auto p-5">
 
-      <h1 class="text-dark mb-4">Profile Details</h1>
+      <h1 class="text-dark mb-4 d-flex align-items-center">
+        Profile Details
+        <span 
+          class="ms-3 badge" 
+          :class="isAdmin ? 'bg-dark' : 'bg-success'"
+          style="font-size: 1rem;"
+        >
+          {{ isAdmin ? 'Admin' : 'User' }}
+        </span>
+      </h1>
 
       <div class="mb-3">
         <input
