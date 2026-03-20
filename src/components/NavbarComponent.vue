@@ -34,27 +34,29 @@ const email = ref("")
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="navbar-nav ms-auto text-center text-lg-start">
+      <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNavAltMarkup">
+        <div class="navbar-nav text-center text-lg-start d-flex flex-column flex-lg-row align-items-lg-center gap-2 gap-lg-3">
 
-        <!-- 👤 USER NAME / EMAIL -->
-        <span v-if="user.email" class="nav-link fw-semibold text-primary">
-          👤 {{ user.email }} |
-        </span>
+          <!-- 👤 USER DISPLAY -->
+          <span class="fw-semibold text-danger px-2 py-1">
+          Welcome!  👤 {{ user.email || 'Guest' }}
+          </span>
 
-        <!-- Courses / Dashboard -->
-        <router-link :to="{ name: 'Courses' }" class="nav-link" v-if="user.isAdmin">
-          Dashboard
-        </router-link>
-        <router-link :to="{ name: 'Courses' }" class="nav-link" v-else>
-          Courses
-        </router-link>
+          <!-- Courses / Dashboard -->
+          <router-link :to="{ name: 'Courses' }" class="nav-link" v-if="user.isAdmin">
+            Dashboard
+          </router-link>
+          <router-link :to="{ name: 'Courses' }" class="nav-link" v-else>
+            Courses
+          </router-link>
 
-        <router-link :to="{ name: 'Register' }" class="nav-link" v-if="!user.email">Register</router-link>
-        <router-link :to="{ name: 'Add Course' }" class="nav-link" v-if="user.isAdmin">Add Course</router-link>
-        <router-link :to="{ name: 'Profile' }" class="nav-link" v-if="user.email">Profile</router-link>
-        <router-link :to="{ name: 'Login' }" class="nav-link" v-if="!user.email">Login</router-link>
-        <router-link :to="{ name: 'Logout' }" class="nav-link" v-else>Logout</router-link>
+          <router-link :to="{ name: 'Register' }" class="nav-link" v-if="!user.email">Register</router-link>
+          <router-link :to="{ name: 'Add Course' }" class="nav-link" v-if="user.isAdmin">Add Course</router-link>
+          <router-link :to="{ name: 'Profile' }" class="nav-link" v-if="user.email">Profile</router-link>
+          <router-link :to="{ name: 'Login' }" class="nav-link" v-if="!user.email">Login</router-link>
+          <router-link :to="{ name: 'Logout' }" class="nav-link" v-else>Logout</router-link>
 
+        </div>
       </div>
 
     </div>
@@ -62,8 +64,6 @@ const email = ref("")
 </template>
 
 <style scoped>
-
-
 .navbar .nav-link:hover {
   color: #0d6efd;
   transform: translateY(-1px);
@@ -77,5 +77,24 @@ const email = ref("")
 
 .navbar-brand[style*="pointer-events:none"] {
   cursor: default;
+}
+
+.navbar-nav {
+  gap: 6px;
+}
+
+@media (max-width: 991px) {
+  .navbar-nav {
+    padding-top: 10px;
+  }
+
+  .navbar .nav-link {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+  }
+
+  .navbar .nav-link:last-child {
+    border-bottom: none;
+  }
 }
 </style>
