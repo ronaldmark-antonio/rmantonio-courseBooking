@@ -155,18 +155,22 @@ export default {
     </div>
 
     <!-- ADMIN FILTERS -->
-    <div v-if="user.isAdmin" class="d-flex justify-content-center">
-      <div style="width:48%;" class="row g-2 align-items-stretch">
+    <div v-if="user.isAdmin" class="d-flex justify-content-center px-2">
 
-        <!-- LEFT: Search + Price -->
-        <div class="col-md-8 d-flex flex-column gap-1">
+      <div class="row g-2 w-100" style="max-width: 600px;">
+
+        <!-- Search -->
+        <div class="col-12 col-md-6">
           <input
             type="text"
             class="form-control form-control-sm rounded-0"
             placeholder="Search courses"
             v-model="search"
           >
+        </div>
 
+        <!-- Price -->
+        <div class="col-12 col-md-4">
           <select
             class="form-select form-select-sm rounded-0"
             v-model="priceRange"
@@ -179,10 +183,10 @@ export default {
           </select>
         </div>
 
-        <!-- RIGHT: Clear -->
-        <div class="col-md-4 d-flex">
+        <!-- Clear -->
+        <div class="col-12 col-md-2 d-flex">
           <button
-            class="btn btn-primary btn-sm rounded-0 w-100 h-100"
+            class="btn btn-primary btn-sm rounded-0 w-100"
             @click="clearFilters"
           >
             Clear
@@ -190,6 +194,7 @@ export default {
         </div>
 
       </div>
+
     </div>
 
     <!-- USER / GUEST FILTERS -->
