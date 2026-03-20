@@ -37,9 +37,17 @@ const email = ref("")
       <div class="collapse navbar-collapse justify-content-lg-end" id="navbarNavAltMarkup">
         <div class="navbar-nav text-center text-lg-start d-flex flex-column flex-lg-row align-items-lg-center gap-2 gap-lg-3">
 
-          <!-- 👤 USER DISPLAY -->
           <span class="fw-semibold text-danger px-2 py-1">
-          Welcome!  👤 {{ user.email || 'Guest' }}
+            👤 
+            <span v-if="user.email">
+              {{ user.isAdmin 
+                  ? `Welcome Admin (${user.email})` 
+                  : `Welcome User (${user.email})` 
+              }}
+            </span>
+            <span v-else>
+              Guest
+            </span>
           </span>
 
           <!-- Courses / Dashboard -->
