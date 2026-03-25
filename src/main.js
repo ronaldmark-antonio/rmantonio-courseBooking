@@ -17,6 +17,7 @@ import ErrorPage from './pages/ErrorPage.vue';
 import ProfilePage from './pages/ProfilePage.vue';
 import ViewCourse from './pages/ViewCourse.vue';
 import AddCourse from './pages/AddCourse.vue';
+import EditCourse from './pages/EditCourse.vue';
 
 import { createRouter, createWebHistory } from 'vue-router';
 
@@ -61,6 +62,11 @@ const router = createRouter({
 			path: '/addCourse',
 			name: 'Add Course',
 			component: AddCourse
+		},
+		{
+		  	path: '/editCourse',
+		  	name: 'Edit Course',
+		  	component: EditCourse
 		},
 		{
 		    path: '/:catchAll(.*)',

@@ -11,7 +11,6 @@ const { user } = useGlobalStore();
 const router = useRouter();
 const course = reactive({ data: null });
 
-// ✅ Loading state for Enroll button
 const isEnrolling = ref(false);
 
 async function handleEnroll() {
@@ -114,14 +113,18 @@ onBeforeMount(async () => {
                 <!-- use v-if to check if the user email exists and if the user is not an admin -->
                 <!-- Enroll button with loading state -->
                 <button 
-                    class="btn btn-primary" 
-                    type="button" 
-                    v-if="user.email && !user.isAdmin" 
-                    @click="handleEnroll"
-                    :disabled="isEnrolling"
+                  class="btn btn-primary d-flex align-items-center gap-2"
+                  type="button" 
+                  v-if="user.email && !user.isAdmin" 
+                  @click="handleEnroll"
+                  :disabled="isEnrolling"
                 >
-                    <span v-if="isEnrolling">Enrolling...</span>
-                    <span v-else>Enroll</span>
+                  <span v-if="isEnrolling">
+                    <i class="bi bi-arrow-repeat spin"></i> Enrolling...
+                  </span>
+                  <span v-else>
+                    <i class="bi bi-journal-plus"></i> Enroll
+                  </span>
                 </button>
                 <!-- add another v-if to check if the user is an admin and disable the button -->
                 <button class="btn btn-outline-primary rounded-0" type="button" v-if="user.email && user.isAdmin" disabled>
@@ -129,6 +132,7 @@ onBeforeMount(async () => {
                 </button>
                 <!-- add another v-if to check if the user is not logged in and redirect them to the login page  -->
                 <router-link to="/login" class="btn btn-outline-primary rounded-0" type="button" v-if="!user.email">
+                    <i class="bi bi-box-arrow-in-right"></i>
                     Login to enroll
                 </router-link>
                 
