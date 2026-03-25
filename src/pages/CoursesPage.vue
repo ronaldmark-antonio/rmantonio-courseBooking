@@ -149,30 +149,31 @@ export default {
     <div class="row mt-3">
       <div class="col my-3">
         <h1 class="text-center text-dark py-1">
+          <i class="bi bi-collection-play"></i>
           {{ user.isAdmin ? "Courses Dashboard" : "Courses" }}
         </h1>
       </div>
     </div>
 
-    <!-- ADMIN FILTERS -->
-    <div v-if="user.isAdmin" class="d-flex justify-content-center px-2">
-
+    <!-- FILTERS -->
+    <div class="d-flex justify-content-center px-2 mb-3">
       <div class="row g-2 w-100" style="max-width: 600px;">
-
         <!-- Search -->
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-6 position-relative">
+          <i class="bi bi-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
           <input
             type="text"
-            class="form-control form-control-sm rounded-0"
+            class="form-control form-control-sm rounded-0 ps-5"
             placeholder="Search courses"
             v-model="search"
           >
         </div>
 
         <!-- Price -->
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 position-relative">
+          <i class="bi bi-currency-dollar position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
           <select
-            class="form-select form-select-sm rounded-0"
+            class="form-select form-select-sm rounded-0 ps-5"
             v-model="priceRange"
           >
             <option value="all">All Prices</option>
@@ -186,77 +187,40 @@ export default {
         <!-- Clear -->
         <div class="col-12 col-md-2 d-flex">
           <button
-            class="btn btn-primary btn-sm rounded-0 w-100"
+            class="btn btn-primary btn-sm rounded-0 w-100 d-flex align-items-center justify-content-center gap-1"
             @click="clearFilters"
           >
-            Clear
+            <i class="bi bi-x-circle"></i> Clear
           </button>
         </div>
-
       </div>
-
-    </div>
-
-    <!-- USER / GUEST FILTERS -->
-    <div v-if="!user.isAdmin" class="row mb-3 g-2 px-3 m-3 justify-content-center align-items-stretch">
-
-      <div class="col-md-6 d-flex flex-column gap-1">
-        <input
-          type="text"
-          class="form-control form-control-sm rounded-0"
-          placeholder="Search courses"
-          v-model="search"
-        >
-
-        <select
-          class="form-select form-select-sm rounded-0"
-          v-model="priceRange"
-        >
-          <option value="all">All Prices</option>
-          <option value="0-500">₱0 – ₱500</option>
-          <option value="500-1000">₱500 – ₱1000</option>
-          <option value="1000-2000">₱1000 – ₱2000</option>
-          <option value="2000+">₱2000+</option>
-        </select>
-      </div>
-
-      <div class="col-md-2 d-flex">
-        <button
-          class="btn btn-primary btn-sm rounded-0 w-100 d-flex align-items-center justify-content-center gap-1"
-          @click="clearFilters"
-        >
-        <i class="bi bi-x-circle"></i> Clear
-        </button>
-      </div>
-
     </div>
 
     <!-- STATES -->
     <div v-if="loading" class="text-center py-5">
-      <h4>Loading courses...</h4>
+      <h4><i class="bi bi-arrow-clockwise spin"></i> Loading courses...</h4>
     </div>
 
     <div v-else-if="error" class="text-center text-danger py-5">
-      <h4>{{ error }}</h4>
+      <h4><i class="bi bi-exclamation-triangle"></i> {{ error }}</h4>
     </div>
 
     <div v-else-if="filteredCourses.length === 0" class="text-center py-5">
-      <h4 class="text-muted">No courses found.</h4>
+      <h4 class="text-muted"><i class="bi bi-info-circle"></i> No courses found.</h4>
     </div>
 
-    <!-- ADMIN TABLE -->
+    <!-- ADMIN MOBILE -->
     <div v-else-if="user.isAdmin" class="p-2 m-2">
-
       <div class="d-block d-md-none">
-
         <div
           v-for="course in filteredCourses"
           :key="course._id"
           class="card mb-3 shadow-sm"
         >
           <div class="card-body">
-
-            <h5 class="fw-bold">{{ course.name }}</h5>
+            <h5 class="fw-bold">
+              <i class="bi bi-journal-bookmark"></i> {{ course.name }}
+            </h5>
 
             <p class="text-muted mb-1">
               {{ course.description?.slice(0, 80) }}
@@ -268,76 +232,101 @@ export default {
             </p>
 
             <p>
-                Status:
-              <span
-                class="badge"
-                :class="course.isActive ? 'bg-success' : 'bg-danger'"
-              >
+              Status:
+              <span class="badge" :class="course.isActive ? 'bg-success' : 'bg-danger'">
+                <i :class="course.isActive ? 'bi bi-check-circle' : 'bi bi-x-circle'"></i>
                 {{ course.isActive ? "Active" : "Inactive" }}
               </span>
             </p>
 
             <div class="d-flex gap-2 flex-wrap">
 
+              <!-- Edit -->
               <router-link
-                class="btn btn-sm btn-primary"
+                class="btn btn-sm btn-primary d-flex align-items-center gap-1"
                 :to="{ path: `/admin/edit-course/${course._id}` }"
               >
-                Edit
+                <i class="bi bi-pencil-square"></i> Edit
               </router-link>
 
               <!-- Activate -->
               <button
                 v-if="!course.isActive"
-                class="btn btn-sm btn-outline-success"
+                class="btn btn-sm btn-outline-success d-flex align-items-center gap-1"
                 @click="activateCourse(course)"
               >
-                Activate
+                <i class="bi bi-check-circle"></i> Activate
               </button>
 
               <!-- Deactivate -->
               <button
                 v-else
-                class="btn btn-sm btn-outline-danger"
+                class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1"
                 @click="deactivateCourse(course)"
               >
-                Deactivate
+                <i class="bi bi-x-circle"></i> Deactivate
               </button>
 
             </div>
-
           </div>
         </div>
-
       </div>
 
-      <!-- 💻 DESKTOP (table) -->
+      <!-- ADMIN DESKTOP TABLE -->
       <div class="d-none d-md-flex justify-content-center">
-        <div style="width: 50%;">
+        <div style="width: 60%;">
           <div class="table-responsive">
             <table class="table table-hover align-middle">
               <thead class="table-dark">
                 <tr>
-                  <th>Course</th>
+                  <th><i class="bi bi-journal-bookmark"></i> Course</th>
                   <th>Description</th>
-                  <th>Price</th>
+                  <th><i class="bi bi-currency-dollar"></i> Price</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>
               </thead>
-
               <tbody>
-                <CourseComponent
-                  v-for="course in filteredCourses"
-                  :key="course._id"
-                  :courseData="course"
-                />
+                <tr v-for="course in filteredCourses" :key="course._id">
+                  <td><i class="bi bi-journal-bookmark"></i> {{ course.name }}</td>
+                  <td>{{ course.description }}</td>
+                  <td>₱{{ course.price?.toLocaleString() }}</td>
+                  <td>
+                    <span class="badge" :class="course.isActive ? 'bg-success' : 'bg-danger'">
+                      <i :class="course.isActive ? 'bi bi-check-circle' : 'bi bi-x-circle'"></i>
+                      {{ course.isActive ? "Active" : "Inactive" }}
+                    </span>
+                  </td>
+                  <td class="d-flex gap-1">
+                    <router-link
+                      class="btn btn-sm btn-primary d-flex align-items-center gap-1"
+                      :to="{ path: `/admin/edit-course/${course._id}` }"
+                    >
+                      <i class="bi bi-pencil-square"></i> Edit
+                    </router-link>
+
+                    <button
+                      v-if="!course.isActive"
+                      class="btn btn-sm btn-outline-success d-flex align-items-center gap-1"
+                      @click="activateCourse(course)"
+                    >
+                      <i class="bi bi-check-circle"></i> Activate
+                    </button>
+
+                    <button
+                      v-else
+                      class="btn btn-sm btn-outline-danger d-flex align-items-center gap-1"
+                      @click="deactivateCourse(course)"
+                    >
+                      <i class="bi bi-x-circle"></i> Deactivate
+                    </button>
+                  </td>
+                </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
-
     </div>
 
     <!-- USER GRID -->
@@ -348,6 +337,11 @@ export default {
         :courseData="course"
       />
     </div>
-
   </div>
 </template>
+
+<style>
+.spin {
+  animation: spin 1s linear infinite;
+}
+</style>
