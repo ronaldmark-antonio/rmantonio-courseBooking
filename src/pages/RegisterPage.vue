@@ -182,7 +182,7 @@
                       :disabled="!isEnabled || isSubmitting"
                       >
                       <span v-if="isSubmitting">
-                          <i class="bi bi-arrow-repeat spin"></i> Submitting...
+                          <i class="bi bi-arrow-repeat spin"></i> Registerring...
                       </span>
                       <span v-else>
                           <i class="bi bi-person-check"></i> Register

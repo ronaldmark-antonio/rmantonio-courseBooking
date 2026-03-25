@@ -84,33 +84,47 @@ onBeforeMount(()=> {
             <div class="col-md-5 border border rounded-0 mx-auto p-5">
                 <h1 class="text-dark mb-5">Login</h1> 
                 <form v-on:submit="handleSubmit">
-                    <div class="mb-3">
-                        <input type="email" class="form-control rounded-0" id="emailInput" placeholder="Email Address" v-model="email" />
-                    </div>
                     <div class="mb-3 position-relative">
-                        <input
-                        :type="showPassword ? 'text' : 'password'"
-                        class="form-control rounded-0 pe-5"
-                        id="passwordInput"
-                        placeholder="Password"
-                        v-model="password"
-                        />
+                      <i class="bi bi-envelope position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+                      <input 
+                      type="email" 
+                      class="form-control rounded-0 ps-5" 
+                      placeholder="Email Address" 
+                      v-model="email" 
+                      />
+                  </div>
+                  <div class="mb-3 position-relative">
+                      <!-- Left icon -->
+                      <i class="bi bi-lock position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
 
-                        <i
-                        :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
-                        class="position-absolute top-50 end-0 translate-middle-y me-3"
-                        style="cursor: pointer; font-size: 1.2rem;"
-                        @click="showPassword = !showPassword"
-                        ></i>
-                    </div>
-                    <div class="d-grid mt-3">
+                      <!-- Input -->
+                      <input
+                      :type="showPassword ? 'text' : 'password'"
+                      class="form-control rounded-0 ps-5 pe-5"
+                      placeholder="Password"
+                      v-model="password"
+                      />
+
+                      <!-- Toggle icon -->
+                      <i
+                      :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
+                      class="position-absolute top-50 end-0 translate-middle-y me-3"
+                      style="cursor: pointer;"
+                      @click="showPassword = !showPassword"
+                      ></i>
+                  </div>
+                  <div class="d-grid mt-3">
                       <button
                       type="submit"
-                      class="btn btn-primary btn-block rounded-0"
+                      class="btn btn-primary rounded-0 d-flex align-items-center justify-content-center gap-2"
                       :disabled="!isEnabled || isLoggingIn"
                       >
-                      <span v-if="isLoggingIn">Logging in...</span>
-                      <span v-else>Login</span>
+                      <span v-if="isLoggingIn">
+                          <i class="bi bi-arrow-repeat spin"></i> Logging in...
+                      </span>
+                      <span v-else>
+                          <i class="bi bi-box-arrow-in-right"></i> Login
+                      </span>
                   </button>
               </div>
           </form>
