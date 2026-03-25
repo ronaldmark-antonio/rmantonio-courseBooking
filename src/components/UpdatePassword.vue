@@ -104,103 +104,115 @@ onBeforeMount(async () => {
 
     <div class="col-md-5 border border rounded-0 mx-auto p-5">
 
-      <h1 class="text-dark mb-4 d-flex align-items-center">
+      <!-- TITLE -->
+      <h1 class="text-dark mb-4 d-flex align-items-center gap-2">
         Profile Details
         <span 
-          class="ms-3 badge" 
+          class="ms-2 badge" 
           :class="isAdmin ? 'bg-dark' : 'bg-success'"
-          style="font-size: 1rem;"
         >
           {{ isAdmin ? 'Admin' : 'User' }}
         </span>
       </h1>
 
-      <div class="mb-3">
-        First Name:
+      <!-- FIRST NAME -->
+      <div class="mb-3 position-relative">
+        <i class="bi bi-person position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
         <input
           type="text"
-          class="form-control rounded-0"
+          class="form-control rounded-0 ps-5"
           :value="firstName"
           disabled
         />
       </div>
 
-      <div class="mb-3">
-        Last Name:
+      <!-- LAST NAME -->
+      <div class="mb-3 position-relative">
+        <i class="bi bi-person-badge position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
         <input
           type="text"
-          class="form-control rounded-0"
+          class="form-control rounded-0 ps-5"
           :value="lastName"
           disabled
         />
       </div>
 
-      <div class="mb-3">
-        Mobile Number:
+      <!-- MOBILE NUMBER -->
+      <div class="mb-3 position-relative">
+        <i class="bi bi-phone position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
         <input
           type="text"
-          class="form-control rounded-0"
+          class="form-control rounded-0 ps-5"
           :value="mobileNo"
           disabled
         />
       </div>
 
-      <div class="mb-4">
-        Email Address:
+      <!-- EMAIL -->
+      <div class="mb-4 position-relative">
+        <i class="bi bi-envelope position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
         <input
           type="email"
-          class="form-control rounded-0"
+          class="form-control rounded-0 ps-5"
           :value="email"
           disabled
         />
       </div>
 
-      <h4 class="mb-3">Reset Password</h4>
+      <!-- RESET PASSWORD TITLE -->
+      <h4 class="mb-3 d-flex align-items-center gap-2">
+        <i class="bi bi-shield-lock"></i> Reset Password
+      </h4>
 
       <form @submit.prevent="handleReset">
 
         <!-- NEW PASSWORD -->
         <div class="mb-3 position-relative">
+          <i class="bi bi-lock position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
           <input
             :type="showPassword ? 'text' : 'password'"
-            class="form-control rounded-0 pe-5"
+            class="form-control rounded-0 ps-5 pe-5"
             placeholder="New Password"
             v-model="newPassword"
           />
-
           <i
             :class="showPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
             class="position-absolute top-50 end-0 translate-middle-y me-3"
-            style="cursor:pointer;font-size:1.2rem"
+            style="cursor:pointer"
             @click="showPassword = !showPassword"
           ></i>
         </div>
 
         <!-- CONFIRM PASSWORD -->
         <div class="mb-3 position-relative">
+          <i class="bi bi-shield-lock position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
           <input
             :type="showConfirmPassword ? 'text' : 'password'"
-            class="form-control rounded-0 pe-5"
+            class="form-control rounded-0 ps-5 pe-5"
             placeholder="Confirm Password"
             v-model="confirmPassword"
           />
-
           <i
             :class="showConfirmPassword ? 'bi bi-eye-slash' : 'bi bi-eye'"
             class="position-absolute top-50 end-0 translate-middle-y me-3"
-            style="cursor:pointer;font-size:1.2rem"
+            style="cursor:pointer"
             @click="showConfirmPassword = !showConfirmPassword"
           ></i>
         </div>
 
+        <!-- RESET BUTTON -->
         <div class="d-grid mt-3">
           <button
             type="submit"
-            class="btn btn-primary btn-block rounded-0"
+            class="btn btn-primary rounded-0 d-flex align-items-center justify-content-center gap-2"
             :disabled="isSubmitDisabled || loading"
           >
-            <span v-if="loading">Resetting Password...</span>
-            <span v-else>Reset Password</span>
+            <span v-if="loading">
+              <i class="bi bi-arrow-repeat spin"></i> Resetting...
+            </span>
+            <span v-else>
+              <i class="bi bi-key"></i> Reset Password
+            </span>
           </button>
         </div>
 
@@ -210,3 +222,14 @@ onBeforeMount(async () => {
   </div>
 </div>
 </template>
+
+<style>
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+</style>
