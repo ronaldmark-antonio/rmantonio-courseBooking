@@ -150,64 +150,71 @@ function handlePriceInput(e) {
   <div class="container-fluid px-3 px-md-0">
     <div class="row d-flex justify-content-center">
 
-      <h1 class="my-5 pt-3 text-dark text-center">Add Course</h1> 
+      <h1 class="my-5 pt-3 text-dark text-center">
+        <i class="bi bi-plus-circle"></i> Add Course
+      </h1> 
 
-      <!-- Mobile padding only -->
       <div class="col-md-6 rounded-3 mx-auto p-3 p-md-2">
 
         <form @submit="addCourse">
 
-          <div class="form-group">
+          <!-- Course Name -->
+          <div class="form-group position-relative">
+            <i class="bi bi-journal-text position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
             <input
               type="text"
-              class="form-control rounded-0"
+              class="form-control rounded-0 ps-5"
               placeholder="Name"
               v-model="name"
             >
           </div>
 
-          <div class="form-group mt-3">
+          <!-- Description -->
+          <div class="form-group mt-3 position-relative">
+            <i class="bi bi-card-text position-absolute top-0 start-0 ms-3 mt-2 text-muted"></i>
             <textarea
-              class="form-control rounded-0"
+              class="form-control rounded-0 ps-5"
               rows="5"
               placeholder="Description"
               v-model="description"
             ></textarea>
           </div>
 
+          <!-- Price -->
           <div class="form-group mt-3">
             <div class="input-group">
-              <span class="input-group-text rounded-0">₱</span>
-                <input
-                  type="text"
-                  class="form-control rounded-0"
-                  placeholder="Price"
-                  :value="formattedPrice"
-                  @input="handlePriceInput"
-                  @keypress="(e) => {
-                    if (!/[0-9.]/.test(e.key)) e.preventDefault();
-                  }"
-                />
+              <span class="input-group-text rounded-0"><i class="bi bi-currency-dollar"></i></span>
+              <input
+                type="text"
+                class="form-control rounded-0"
+                placeholder="Price"
+                :value="formattedPrice"
+                @input="handlePriceInput"
+                @keypress="(e) => {
+                  if (!/[0-9.]/.test(e.key)) e.preventDefault();
+                }"
+              />
             </div>
           </div>
 
-          <div class="text-end">
-            <button
-              type="button"
-              class="btn btn-outline-primary rounded-0 my-3 mx-2"
-              @click="$router.push('/courses')"
-            >
-              Cancel
-            </button>
+          <!-- Buttons -->
+        <div class="d-flex justify-content-end gap-2 mt-3">
+          <button
+            type="button"
+            class="btn btn-outline-secondary rounded-0 d-flex align-items-center gap-1"
+            @click="$router.push('/courses')"
+          >
+            <i class="bi bi-x-circle"></i> Cancel
+          </button>
 
-            <button
-              type="submit"
-              class="btn btn-primary my-3 rounded-0"
-              :disabled="!isEnabled"
-            >
-              Submit
-            </button>
-          </div>
+          <button
+            type="submit"
+            class="btn btn-primary rounded-0 d-flex align-items-center gap-1"
+            :disabled="!isEnabled"
+          >
+            <i class="bi bi-check-circle"></i> Submit
+          </button>
+        </div>
 
         </form>
 
