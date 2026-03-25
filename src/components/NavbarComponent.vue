@@ -50,19 +50,33 @@ const email = ref("")
             </span>
           </span>
 
-          <!-- Courses / Dashboard -->
           <router-link :to="{ name: 'Courses' }" class="nav-link" v-if="user.isAdmin">
-            Dashboard
-          </router-link>
-          <router-link :to="{ name: 'Courses' }" class="nav-link" v-else>
-            Courses
+            <i class="bi bi-speedometer2 me-1"></i> Dashboard
           </router-link>
 
-          <router-link :to="{ name: 'Register' }" class="nav-link" v-if="!user.email">Register</router-link>
-          <router-link :to="{ name: 'Add Course' }" class="nav-link" v-if="user.isAdmin">Add Course</router-link>
-          <router-link :to="{ name: 'Profile' }" class="nav-link" v-if="user.email">Profile</router-link>
-          <router-link :to="{ name: 'Login' }" class="nav-link" v-if="!user.email">Login</router-link>
-          <router-link :to="{ name: 'Logout' }" class="nav-link" v-else>Logout</router-link>
+          <router-link :to="{ name: 'Courses' }" class="nav-link" v-else>
+            <i class="bi bi-journal-bookmark me-1"></i> Courses
+          </router-link>
+
+          <router-link :to="{ name: 'Register' }" class="nav-link" v-if="!user.email">
+            <i class="bi bi-person-plus me-1"></i> Register
+          </router-link>
+
+          <router-link :to="{ name: 'Add Course' }" class="nav-link" v-if="user.isAdmin">
+            <i class="bi bi-plus-circle me-1"></i> Add Course
+          </router-link>
+
+          <router-link :to="{ name: 'Profile' }" class="nav-link" v-if="user.email">
+            <i class="bi bi-person-circle me-1"></i> Profile
+          </router-link>
+
+          <router-link :to="{ name: 'Login' }" class="nav-link" v-if="!user.email">
+            <i class="bi bi-box-arrow-in-right me-1"></i> Login
+          </router-link>
+
+          <router-link :to="{ name: 'Logout' }" class="nav-link" v-else>
+            <i class="bi bi-box-arrow-right me-1"></i> Logout
+          </router-link>
 
         </div>
       </div>
