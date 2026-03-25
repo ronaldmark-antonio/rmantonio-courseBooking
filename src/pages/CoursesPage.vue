@@ -222,10 +222,10 @@ export default {
 
       <div class="col-md-2 d-flex">
         <button
-          class="btn btn-primary btn-sm rounded-0 w-100 h-100"
+          class="btn btn-primary btn-sm rounded-0 w-100 d-flex align-items-center justify-content-center gap-1"
           @click="clearFilters"
         >
-          Clear
+        <i class="bi bi-x-circle"></i> Clear
         </button>
       </div>
 

@@ -197,21 +197,25 @@ export default {
 
         <div class="d-grid gap-2 mt-md-auto">
 
-          <button 
-            class="btn btn-primary rounded-0"
-            :disabled="isEnrolling"
-            @click="handleEnroll"
-          >
-            <span v-if="isEnrolling">Enrolling...</span>
-            <span v-else>Enroll</span>
-          </button>
+        <button 
+          class="btn btn-primary rounded-0 d-flex align-items-center justify-content-center gap-2"
+          :disabled="isEnrolling"
+          @click="handleEnroll"
+        >
+          <span v-if="isEnrolling">
+            <i class="bi bi-arrow-repeat spin"></i> Enrolling...
+          </span>
+          <span v-else>
+            <i class="bi-journal-plus"></i> Enroll
+          </span>
+        </button>
 
-          <router-link 
-            class="btn btn-outline-primary rounded-0" 
-            :to="{ path: `/courses/${courseData._id}`}"
-          >
-            View
-          </router-link>
+        <router-link 
+          class="btn btn-outline-primary rounded-0 d-flex align-items-center justify-content-center gap-2"
+          :to="{ path: `/courses/${courseData._id}`}"
+        >
+          <i class="bi bi-eye"></i> View
+        </router-link>
 
         </div>
       </div>
