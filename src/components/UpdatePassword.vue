@@ -13,7 +13,7 @@ const firstName = ref('')
 const lastName = ref('')
 const mobileNo = ref('')
 const email = ref('')
-const isAdmin = ref(false) // boolean for admin
+const isAdmin = ref(false)
 
 const newPassword = ref('')
 const confirmPassword = ref('')
@@ -21,10 +21,7 @@ const confirmPassword = ref('')
 const showPassword = ref(false);
 const showConfirmPassword = ref(false);
 
-const isSubmitDisabled = computed(() => {
-  return !newPassword.value || !confirmPassword.value
-})
-
+const isSubmitDisabled = computed(() => !newPassword.value || !confirmPassword.value)
 const loading = ref(false)
 
 const handleReset = async () => {
@@ -99,67 +96,53 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-<div class="container-fluid">
-  <div class="row d-flex justify-content-center p-5">
+<div class="container">
+  <div class="row justify-content-center p-3">
 
-    <div class="col-md-5 border border rounded-0 mx-auto p-5">
+    <!-- NARROWER PROFILE CARD -->
+    <div class="col-12 col-md-5 col-lg-4 border rounded-0 p-4">
 
-      <!-- TITLE -->
-      <h1 class="text-dark mb-4 d-flex align-items-center gap-2">
-        Profile Details
+      <!-- PROFILE HEADER -->
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold d-flex align-items-center gap-2">
+          <i class="bi bi-person-circle"></i>
+          Profile Details
+        </h2>
         <span 
-          class="ms-2 badge" 
-          :class="isAdmin ? 'bg-dark' : 'bg-success'"
+          class="badge d-flex align-items-center gap-1"
+          :class="isAdmin ? 'bg-danger' : 'bg-primary'"
+          style="font-size: 0.8rem; padding: 0.25em 0.5em;"
         >
+          <i :class="isAdmin ? 'bi bi-shield-lock-fill' : 'bi bi-person-fill'"></i>
           {{ isAdmin ? 'Admin' : 'User' }}
         </span>
-      </h1>
+      </div>
 
       <!-- FIRST NAME -->
       <div class="mb-3 position-relative">
         <i class="bi bi-person position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-        <input
-          type="text"
-          class="form-control rounded-0 ps-5"
-          :value="firstName"
-          disabled
-        />
+        <input type="text" class="form-control rounded-0 ps-5" :value="firstName" disabled />
       </div>
 
       <!-- LAST NAME -->
       <div class="mb-3 position-relative">
         <i class="bi bi-person-badge position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-        <input
-          type="text"
-          class="form-control rounded-0 ps-5"
-          :value="lastName"
-          disabled
-        />
+        <input type="text" class="form-control rounded-0 ps-5" :value="lastName" disabled />
       </div>
 
       <!-- MOBILE NUMBER -->
       <div class="mb-3 position-relative">
-        <i class="bi bi-phone position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-        <input
-          type="text"
-          class="form-control rounded-0 ps-5"
-          :value="mobileNo"
-          disabled
-        />
+        <i class="bi bi-telephone position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+        <input type="text" class="form-control rounded-0 ps-5" :value="mobileNo" disabled />
       </div>
 
       <!-- EMAIL -->
       <div class="mb-4 position-relative">
         <i class="bi bi-envelope position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-        <input
-          type="email"
-          class="form-control rounded-0 ps-5"
-          :value="email"
-          disabled
-        />
+        <input type="email" class="form-control rounded-0 ps-5" :value="email" disabled />
       </div>
 
-      <!-- RESET PASSWORD TITLE -->
+      <!-- RESET PASSWORD -->
       <h4 class="mb-3 d-flex align-items-center gap-2">
         <i class="bi bi-shield-lock"></i> Reset Password
       </h4>
@@ -226,10 +209,5 @@ onBeforeMount(async () => {
 <style>
 .spin {
   animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
 }
 </style>
