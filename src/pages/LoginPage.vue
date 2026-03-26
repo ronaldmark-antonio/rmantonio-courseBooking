@@ -82,7 +82,10 @@ onBeforeMount(()=> {
     <div class="container-fluid">
         <div class="row d-flex justify-content-center p-5">
             <div class="col-md-5 border border rounded-0 mx-auto p-5">
-                <h1 class="text-dark mb-5">Login</h1> 
+                <div class="d-flex justify-content-center align-items-center gap-2 mb-5">
+                  <i class="bi bi-box-arrow-in-right text-dark" style="font-size: 2rem;"></i>
+                  <h1 class="text-dark m-0">Login</h1>
+                </div>
                 <form v-on:submit="handleSubmit">
                     <div class="mb-3 position-relative">
                       <i class="bi bi-envelope position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
