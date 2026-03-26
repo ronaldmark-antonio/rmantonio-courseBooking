@@ -169,57 +169,56 @@ export default {
   </tr>
 
 
-  <!-- USER CARD VIEW -->
-  <div
-    v-else-if="courseData"
-    class="col-12 col-md-6 col-lg-3 p-2 d-flex flex-row"
+<!-- USER CARD VIEW -->
+<div
+  v-else-if="courseData"
+  class="col-12 col-md-6 col-lg-3 px-2 mb-3"
+>
+  <div 
+    id="CourseCard" 
+    class="card cardHighlights shadow-sm rounded-0 flex-fill"
+    style="display: flex; flex-direction: column; height: 100%;"
   >
-    <div id="CourseCard" class="card cardHighlights shadow-sm rounded-0" style="min-height: 100%">
-      
-      <img 
-        class="card-img-top rounded-0"
-        :src="`https://placehold.co/600x400/377399/ffffff?font=lora&text=${encodeURIComponent(courseData.name)}`"
-        :alt="courseData.name"
-      >
+    
+    <!-- IMAGE: only show on md+ screens -->
+    <img 
+      class="card-img-top rounded-0 d-none d-md-block"
+      :src="`https://placehold.co/600x400/377399/ffffff?font=lora&text=${encodeURIComponent(courseData.name)}`"
+      :alt="courseData.name"
+    >
 
-      <div class="card-body d-flex flex-column">
-        <h4 class="card-title fw-bold mb-0">
-          {{ courseData.name }}
-        </h4>
+    <div class="card-body d-flex flex-column flex-fill">
+      <!-- Course Title -->
+      <h4 class="card-title fw-bold mb-2">
+        {{ courseData.name }}
+      </h4>
 
-        <p class="card-text text-muted mb-0">
-          {{ courseData.description?.slice(0, 100) + (courseData.description?.length > 100 ? '...' : '') }}
-        </p>
+      <p class="card-text text-muted mb-2">
+        {{ courseData.description?.slice(0, 100) + (courseData.description?.length > 100 ? '...' : '') }}
+      </p>
 
-        <p class="mb-3">
-          <span>Price:</span> &#8369;{{ courseData.price?.toLocaleString() }}
-        </p>
+      <p class="mb-3">
+        <span>Price:</span> &#8369;{{ courseData.price?.toLocaleString() }}
+      </p>
 
-        <div class="d-grid gap-2 mt-md-auto">
-
+      <div class="d-grid gap-2 mt-auto">
         <button 
-          class="btn btn-primary rounded-0 d-flex align-items-center justify-content-center gap-2"
+          class="btn btn-primary rounded-0"
           :disabled="isEnrolling"
           @click="handleEnroll"
         >
-          <span v-if="isEnrolling">
-            <i class="bi bi-arrow-repeat spin"></i> Enrolling...
-          </span>
-          <span v-else>
-            <i class="bi-journal-plus"></i> Enroll
-          </span>
+          <span v-if="isEnrolling">Enrolling...</span>
+          <span v-else>Enroll</span>
         </button>
 
         <router-link 
-          class="btn btn-outline-primary rounded-0 d-flex align-items-center justify-content-center gap-2"
-          :to="{ path: `/courses/${courseData._id}`}"
-        >
-          <i class="bi bi-eye"></i> View
+          class="btn btn-outline-primary rounded-0"
+          :to="{ path: `/courses/${courseData._id}`}">
+          View
         </router-link>
-
-        </div>
       </div>
     </div>
   </div>
+</div>
 
 </template>
