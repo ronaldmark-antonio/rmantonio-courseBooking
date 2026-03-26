@@ -38,17 +38,18 @@ const email = ref("")
         <div class="navbar-nav text-center text-lg-start d-flex flex-column flex-lg-row align-items-lg-center gap-2 gap-lg-3">
 
           <span class="fw-semibold text-danger px-2 py-1">
-            👤 
             <span v-if="user.email">
               {{ user.isAdmin 
                   ? `Welcome Admin (${user.email})` 
                   : `Welcome User (${user.email})` 
               }}
             </span>
-            <span v-else>
-              Guest
-            </span>
+
           </span>
+
+          <router-link :to="{ name: 'Home' }" class="nav-link" v-if="!user.email">
+            <i class="bi bi-house me-1"></i> Home
+          </router-link>
 
           <router-link :to="{ name: 'Courses' }" class="nav-link" v-if="user.isAdmin">
             <i class="bi bi-speedometer2 me-1"></i> Dashboard

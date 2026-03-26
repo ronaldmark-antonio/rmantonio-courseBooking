@@ -149,7 +149,7 @@ export default {
     <div class="row mt-3">
       <div class="col my-3">
         <h1 class="text-center text-dark py-1">
-          <i class="bi bi-collection-play"></i>
+          <i class="bi bi-journal-bookmark me-1"></i>
           {{ user.isAdmin ? "Courses Dashboard" : "Courses" }}
         </h1>
       </div>
@@ -171,7 +171,7 @@ export default {
 
         <!-- Price -->
         <div class="col-12 col-md-4 position-relative">
-          <i class="bi bi-currency-dollar position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+          <i class="bi bi-cash position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
           <select
             class="form-select form-select-sm rounded-0 ps-5"
             v-model="priceRange"
