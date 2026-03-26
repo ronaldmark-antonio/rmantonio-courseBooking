@@ -21,6 +21,7 @@ export default {
     const notyf = new Notyf();
 
     const loadCourses = async () => {
+      
       try {
         let response;
 
@@ -30,11 +31,16 @@ export default {
               Authorization: `Bearer ${localStorage.getItem("token")}`
             }
           });
+
+          courses.value = response.data.reverse();
+
         } else {
           response = await api.get("/courses");
-        }
 
-        courses.value = response.data.reverse();
+          courses.value = response.data.sort((a, b) => 
+            a.name.localeCompare(b.name)
+          );
+        }
 
       } catch (err) {
         console.error(err);
@@ -279,9 +285,9 @@ export default {
             <table class="table table-hover align-middle">
               <thead class="table-dark">
                 <tr>
-                  <th><i class="bi bi-journal-bookmark"></i> Course</th>
+                  <th>Course</th>
                   <th>Description</th>
-                  <th><i class="bi bi-currency-dollar"></i> Price</th>
+                  <th>Price</th>
                   <th>Status</th>
                   <th>Actions</th>
                 </tr>

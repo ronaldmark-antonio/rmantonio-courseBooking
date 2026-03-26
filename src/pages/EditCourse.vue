@@ -14,7 +14,6 @@ const price = ref("");
 
 const isSubmitting = ref(false);
 
-// ✅ Load course data
 onMounted(async () => {
   try {
     const res = await axios.get(
@@ -30,7 +29,6 @@ onMounted(async () => {
   }
 });
 
-// ✅ Update course
 const handleUpdate = async (e) => {
   e.preventDefault();
 
@@ -97,7 +95,6 @@ const handleUpdate = async (e) => {
         ></textarea>
       </div>
 
-      <!-- Price -->
       <div class="mb-3 position-relative">
         <i class="bi bi-cash position-absolute top-50 start-0 translate-middle-y ms-3"></i>
         <input
@@ -109,7 +106,6 @@ const handleUpdate = async (e) => {
         />
       </div>
 
-      <!-- Submit -->
       <button
         class="btn btn-primary w-100 d-flex align-items-center justify-content-center gap-2"
         :disabled="isSubmitting"
